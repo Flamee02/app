@@ -1,50 +1,960 @@
 {
   "offerta_1": {
+    "titolo": "PARMIGIANO REGGIANO DOP GRATTUGIATO",
+    "negozio": "Eurospin",
+    "prezzo": "1,49 €"
+  },
+  "offerta_2": {
+    "titolo": "OLIO DI SEMI DI GIRASOLE",
+    "negozio": "Eurospin",
+    "prezzo": "1,39 €"
+  },
+  "offerta_3": {
+    "titolo": "CONI CON PANNA, 12 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "3,99 €"
+  },
+  "offerta_4": {
+    "titolo": "WÜRSTEL PURO SUINO, 4 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "0,39 €"
+  },
+  "offerta_5": {
+    "titolo": "PROSCIUTTO DI PARMA DOP",
+    "negozio": "Eurospin",
+    "prezzo": "2,59 €"
+  },
+  "offerta_6": {
+    "titolo": "MORTADELLA BOLOGNA IGP",
+    "negozio": "Eurospin",
+    "prezzo": "1,49 €"
+  },
+  "offerta_7": {
+    "titolo": "PETTO DI TACCHINO ARROSTO",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_8": {
+    "titolo": "BRESAOLA DELLA VALTELLINA IGP",
+    "negozio": "Eurospin",
+    "prezzo": "2,29 €"
+  },
+  "offerta_9": {
+    "titolo": "PROVOLA DOLCE A FETTE",
+    "negozio": "Eurospin",
+    "prezzo": "1,29 €"
+  },
+  "offerta_10": {
+    "titolo": "PARMIGIANO REGGIANO DOP",
+    "negozio": "Eurospin",
+    "prezzo": "4,99 €"
+  },
+  "offerta_11": {
+    "titolo": "RAVIOLI RICOTTA, SPINACI ED ERBETTE",
+    "negozio": "Eurospin",
+    "prezzo": "1,39 €"
+  },
+  "offerta_12": {
+    "titolo": "STRACCHINO",
+    "negozio": "Eurospin",
+    "prezzo": "1,09 €"
+  },
+  "offerta_13": {
+    "titolo": "MOZZARELLA PER PIZZE E PANINI",
+    "negozio": "Eurospin",
+    "prezzo": "4,99 €"
+  },
+  "offerta_14": {
+    "titolo": "PROSCIUTTO COTTO ALTA QUALITÀ",
+    "negozio": "Eurospin",
+    "prezzo": "1,49 €"
+  },
+  "offerta_15": {
+    "titolo": "SALAME NAPOLI",
+    "negozio": "Eurospin",
+    "prezzo": "1,29 €"
+  },
+  "offerta_16": {
+    "titolo": "EMMENTAL FRANCESE",
+    "negozio": "Eurospin",
+    "prezzo": "1,85 €"
+  },
+  "offerta_17": {
+    "titolo": "RICOTTA FRESCA",
+    "negozio": "Eurospin",
+    "prezzo": "0,55 €"
+  },
+  "offerta_18": {
+    "titolo": "OLIO EXTRA VERGINE DI OLIVA",
+    "negozio": "Eurospin",
+    "prezzo": "22,49 €"
+  },
+  "offerta_19": {
+    "titolo": "TRANCETTI DI TONNO ALL'OLIO DI OLIVA",
+    "negozio": "Eurospin",
+    "prezzo": "2,19 €"
+  },
+  "offerta_20": {
+    "titolo": "PIADINA ROMAGNOLA IGP ALLA RIMINESE",
+    "negozio": "Eurospin",
+    "prezzo": "0,95 €"
+  },
+  "offerta_21": {
+    "titolo": "SALSA DI POMODORO DATTERINO",
+    "negozio": "Eurospin",
+    "prezzo": "0,79 €"
+  },
+  "offerta_22": {
+    "titolo": "FUSILLI",
+    "negozio": "Eurospin",
+    "prezzo": "1,19 €"
+  },
+  "offerta_23": {
+    "titolo": "PASTA SFOGLIA FRESCA RETTANGOLARE",
+    "negozio": "Eurospin",
+    "prezzo": "0,69 €"
+  },
+  "offerta_24": {
+    "titolo": "PASSATA DI POMODORO",
+    "negozio": "Eurospin",
+    "prezzo": "0,65 €"
+  },
+  "offerta_25": {
+    "titolo": "PENNE RIGATE",
+    "negozio": "Eurospin",
+    "prezzo": "1,19 €"
+  },
+  "offerta_26": {
+    "titolo": "ACETO DI VINO BIANCO",
+    "negozio": "Eurospin",
+    "prezzo": "0,55 €"
+  },
+  "offerta_27": {
+    "titolo": "GNOCCHETTI DI PATATE",
+    "negozio": "Eurospin",
+    "prezzo": "0,65 €"
+  },
+  "offerta_28": {
+    "titolo": "CIPOLLE ROSSE IN AGRODOLCE DI TROPEA IGP",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_29": {
+    "titolo": "FILETTI DI ACCIUGHE DEL MAR CANTABRICO IN OLIO DI OLIVA",
+    "negozio": "Eurospin",
+    "prezzo": "1,69 €"
+  },
+  "offerta_30": {
+    "titolo": "CONDIMENTO PER RISO CON TONNO",
+    "negozio": "Eurospin",
+    "prezzo": "2,19 €"
+  },
+  "offerta_31": {
+    "titolo": "INSALATA PER RISO CON WURSTEL",
+    "negozio": "Eurospin",
+    "prezzo": "2,19 €"
+  },
+  "offerta_32": {
+    "titolo": "LATTE INTERO UHT",
+    "negozio": "Eurospin",
+    "prezzo": "0,69 €"
+  },
+  "offerta_33": {
+    "titolo": "SPAGHETTI INTEGRALI TRAFILATI AL BRONZO",
+    "negozio": "Eurospin",
+    "prezzo": "0,65 €"
+  },
+  "offerta_34": {
+    "titolo": "PENNE RIGATE INTEGRALI TRAFILATE AL BRONZO",
+    "negozio": "Eurospin",
+    "prezzo": "0,65 €"
+  },
+  "offerta_35": {
+    "titolo": "FARFALLE INTEGRALI TRAFILATE AL BRONZO",
+    "negozio": "Eurospin",
+    "prezzo": "0,65 €"
+  },
+  "offerta_36": {
+    "titolo": "CROISSANT CON CREMA PASTICCERA, 10 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "1,79 €"
+  },
+  "offerta_37": {
+    "titolo": "FROLLINI CON GOCCE DI CIOCCOLATO",
+    "negozio": "Eurospin",
+    "prezzo": "1,59 €"
+  },
+  "offerta_38": {
+    "titolo": "FROLLINI CON RISO E LATTE",
+    "negozio": "Eurospin",
+    "prezzo": "1,49 €"
+  },
+  "offerta_39": {
+    "titolo": "GEL ANTICALCARE PER LAVATRICE",
+    "negozio": "Eurospin",
+    "prezzo": ""
+  },
+  "offerta_40": {
+    "titolo": "MAIS DOLCE",
+    "negozio": "Eurospin",
+    "prezzo": "0,59 €"
+  },
+  "offerta_41": {
+    "titolo": "BENESSERE MIX",
+    "negozio": "Eurospin",
+    "prezzo": ""
+  },
+  "offerta_42": {
+    "titolo": "FILETTI DI SALMONE ALL'OLIO DI OLIVA",
+    "negozio": "Eurospin",
+    "prezzo": "2,39 €"
+  },
+  "offerta_43": {
+    "titolo": "TORTILLA",
+    "negozio": "Eurospin",
+    "prezzo": "0,99 €"
+  },
+  "offerta_44": {
+    "titolo": "BIRRA LEGGERA 3% VOL.",
+    "negozio": "Eurospin",
+    "prezzo": ""
+  },
+  "offerta_45": {
+    "titolo": "MAXI COOKIES CON GOCCE DI CIOCCOLATO",
+    "negozio": "Eurospin",
+    "prezzo": "1,49 €"
+  },
+  "offerta_46": {
+    "titolo": "CROCCANTINI AL FORMAGGIO, 6 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "1,19 €"
+  },
+  "offerta_47": {
+    "titolo": "CAFFÈ CLASSICO",
+    "negozio": "Eurospin",
+    "prezzo": "4,19 €"
+  },
+  "offerta_48": {
+    "titolo": "TONNO PINNA GIALLA ALL'OLIO DI OLIVA",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_49": {
+    "titolo": "POMODORI SECCHI",
+    "negozio": "Eurospin",
+    "prezzo": "0,99 €"
+  },
+  "offerta_50": {
+    "titolo": "PANE AMERICAN SANDWICH",
+    "negozio": "Eurospin",
+    "prezzo": "1,19 €"
+  },
+  "offerta_51": {
+    "titolo": "CROCCHETTE PER CANI ADULTI",
+    "negozio": "Eurospin",
+    "prezzo": "8,39 €"
+  },
+  "offerta_52": {
+    "titolo": "CANDEGGINA DELICATA",
+    "negozio": "Eurospin",
+    "prezzo": "1,19 €"
+  },
+  "offerta_53": {
+    "titolo": "LIQUIDO LAVATRICE MARSIGLIA E FELCE, 50 LAVAGGI",
+    "negozio": "Eurospin",
+    "prezzo": "3,39 €"
+  },
+  "offerta_54": {
+    "titolo": "CARTA IGIENICA LA DELICATA, 20 ROTOLI, 2 VELI, 170 STRAPPI",
+    "negozio": "Eurospin",
+    "prezzo": "2,69 €"
+  },
+  "offerta_55": {
+    "titolo": "VINO BIANCO IN BRIK",
+    "negozio": "Eurospin",
+    "prezzo": "0,85 €"
+  },
+  "offerta_56": {
+    "titolo": "VINO ROSATO IN BRIK",
+    "negozio": "Eurospin",
+    "prezzo": "0,85 €"
+  },
+  "offerta_57": {
+    "titolo": "ROTOLO TUTTOFARE CASA, 2 VELI, 400 STRAPPI",
+    "negozio": "Eurospin",
+    "prezzo": "1,69 €"
+  },
+  "offerta_58": {
+    "titolo": "THÈ ALLA PESCA/ AL LIMONE ZERO ZUCCHERO",
+    "negozio": "Eurospin",
+    "prezzo": "0,55 €"
+  },
+  "offerta_59": {
+    "titolo": "CARTA IGIENICA LA SETOSA, 12 ROTOLI, 2 VELI, 150 STRAPPI",
+    "negozio": "Eurospin",
+    "prezzo": "2,49 €"
+  },
+  "offerta_60": {
+    "titolo": "FAZZOLETTI DELICATI, 4 VELI, 30 PACCHETTI, 10 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_61": {
+    "titolo": "PROSECCO DOC FRIZZANTE",
+    "negozio": "Eurospin",
+    "prezzo": "2,89 €"
+  },
+  "offerta_62": {
+    "titolo": "DETERGENTE PIATTI AL LIMONE",
+    "negozio": "Eurospin",
+    "prezzo": "1,79 €"
+  },
+  "offerta_63": {
+    "titolo": "AMMORBIDENTE ASSORTITO, 40 LAVAGGI",
+    "negozio": "Eurospin",
+    "prezzo": "0,99 €"
+  },
+  "offerta_64": {
+    "titolo": "BEVANDA ANANAS/MULTIVITAMINICA",
+    "negozio": "Eurospin",
+    "prezzo": "0,69 €"
+  },
+  "offerta_65": {
+    "titolo": "BIBITA ANANAS E MELA",
+    "negozio": "Eurospin",
+    "prezzo": "0,69 €"
+  },
+  "offerta_66": {
+    "titolo": "BIRRA PREMIUM STRONG DOPPIO MALTO",
+    "negozio": "Eurospin",
+    "prezzo": "0,69 €"
+  },
+  "offerta_67": {
+    "titolo": "BIG CIOC CON MANDORLE 3 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "1,65 €"
+  },
+  "offerta_68": {
+    "titolo": "GHIACCIOLI ASSORTITI, 20 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "3,19 €"
+  },
+  "offerta_69": {
+    "titolo": "BIG CIOC BIANCHI CON MANDORLE 3 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "1,65 €"
+  },
+  "offerta_70": {
+    "titolo": "GELATO ALLA PANNA",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_71": {
+    "titolo": "GELATO AL TARTUFO",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_72": {
+    "titolo": "GELATO ALLA NOCCIOLA",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_73": {
+    "titolo": "GELATO AL LIMONE",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_74": {
+    "titolo": "GELATO AI FRUTTI DI BOSCO",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_75": {
+    "titolo": "GELATO AL GUSTO CREMA",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_76": {
+    "titolo": "CONI AL CROCCANTE, 6 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "2,15 €"
+  },
+  "offerta_77": {
+    "titolo": "BISCOTTI TRIGUSTO, 6 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "2,49 €"
+  },
+  "offerta_78": {
+    "titolo": "SUGO AI FRUTTI DI MARE",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_79": {
+    "titolo": "BASTONCINI DI FILETTI DI MERLUZZO, 15 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "2,79 €"
+  },
+  "offerta_80": {
+    "titolo": "FILETTI DI MERLUZZO ATLANTICO",
+    "negozio": "Eurospin",
+    "prezzo": "5,99 €"
+  },
+  "offerta_81": {
+    "titolo": "CODE DI MAZZANCOLLA TROPICALE",
+    "negozio": "Eurospin",
+    "prezzo": "5,49 €"
+  },
+  "offerta_82": {
+    "titolo": "CROCCHINI CON AMARENA, 6 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "2,39 €"
+  },
+  "offerta_83": {
+    "titolo": "CROCCHINI GUSTO GIANDUIA, 6 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "2,39 €"
+  },
+  "offerta_84": {
+    "titolo": "PATATE FRITTE",
+    "negozio": "Eurospin",
+    "prezzo": "1,29 €"
+  },
+  "offerta_85": {
+    "titolo": "TRANCI DI PIZZA MARGHERITA, 3 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "3,69 €"
+  },
+  "offerta_86": {
+    "titolo": "OLIVE VERDI DENOCCIOLATE",
+    "negozio": "Eurospin",
+    "prezzo": "1,39 €"
+  },
+  "offerta_87": {
+    "titolo": "SPUMANTE PRINCE CASTELL BRUT",
+    "negozio": "Eurospin",
+    "prezzo": "1,69 €"
+  },
+  "offerta_88": {
+    "titolo": "APERITIVO ITALIANO",
+    "negozio": "Eurospin",
+    "prezzo": "7,49 €"
+  },
+  "offerta_89": {
+    "titolo": "SALAMINI CLASSICI",
+    "negozio": "Eurospin",
+    "prezzo": "1,85 €"
+  },
+  "offerta_90": {
+    "titolo": "SALAMINI PICCANTI",
+    "negozio": "Eurospin",
+    "prezzo": "1,85 €"
+  },
+  "offerta_91": {
+    "titolo": "SPRITZ APERITIVO",
+    "negozio": "Eurospin",
+    "prezzo": "1,45 €"
+  },
+  "offerta_92": {
+    "titolo": "GRANA PADANO DOP A CUBETTI",
+    "negozio": "Eurospin",
+    "prezzo": "4,39 €"
+  },
+  "offerta_93": {
+    "titolo": "TONICA AL LIMONE",
+    "negozio": "Eurospin",
+    "prezzo": "0,49 €"
+  },
+  "offerta_94": {
+    "titolo": "BIRRA LAGER",
+    "negozio": "Eurospin",
+    "prezzo": "0,39 €"
+  },
+  "offerta_95": {
+    "titolo": "BOCCONCINI DI SCAMORZA AFFUMICATA",
+    "negozio": "Eurospin",
+    "prezzo": "1,79 €"
+  },
+  "offerta_96": {
+    "titolo": "SNACK ALLA TIROLESE XXL ASSORTITI",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_97": {
+    "titolo": "PATATINE CROCCANTI GRIGLIATE",
+    "negozio": "Eurospin",
+    "prezzo": "0,99 €"
+  },
+  "offerta_98": {
+    "titolo": "CACIOTTINA",
+    "negozio": "Eurospin",
+    "prezzo": "9,89 €"
+  },
+  "offerta_99": {
+    "titolo": "PROVOLETTA AFFUMICATA",
+    "negozio": "Eurospin",
+    "prezzo": "9,99 €"
+  },
+  "offerta_100": {
+    "titolo": "VERMENTINO DI GALLURA DOCG",
+    "negozio": "Eurospin",
+    "prezzo": "3,89 €"
+  },
+  "offerta_101": {
+    "titolo": "MOZZARELLA",
+    "negozio": "Eurospin",
+    "prezzo": "1,89 €"
+  },
+  "offerta_102": {
+    "titolo": "SALSICCIA CURVA",
+    "negozio": "Eurospin",
+    "prezzo": "13,99 €"
+  },
+  "offerta_103": {
+    "titolo": "CULURGIONIS D'OGLIASTRA IGP ALLA MENTA",
+    "negozio": "Eurospin",
+    "prezzo": "3,39 €"
+  },
+  "offerta_104": {
+    "titolo": "BURRO",
+    "negozio": "Eurospin",
+    "prezzo": "1,69 €"
+  },
+  "offerta_105": {
+    "titolo": "SEBADAS DI SARDEGNA IGP",
+    "negozio": "Eurospin",
+    "prezzo": "2,69 €"
+  },
+  "offerta_106": {
+    "titolo": "RAVIOLI RICOTTA E SPINACI",
+    "negozio": "Eurospin",
+    "prezzo": "2,29 €"
+  },
+  "offerta_107": {
+    "titolo": "LATTE PARZIALMENTE SCREMATO UHT",
+    "negozio": "Eurospin",
+    "prezzo": "0,89 €"
+  },
+  "offerta_108": {
+    "titolo": "GRATTUGIATO ITALIANO",
+    "negozio": "Eurospin",
+    "prezzo": "1,39 €"
+  },
+  "offerta_109": {
+    "titolo": "MASCARPONE CREMOSO",
+    "negozio": "Eurospin",
+    "prezzo": "3,09 €"
+  },
+  "offerta_110": {
+    "titolo": "MOZZARELLA FIOR DI LATTE",
+    "negozio": "Eurospin",
+    "prezzo": "1,59 €"
+  },
+  "offerta_111": {
+    "titolo": "YOGURT BIANCO DOLCE E CREMOSO",
+    "negozio": "Eurospin",
+    "prezzo": "2,49 €"
+  },
+  "offerta_112": {
+    "titolo": "MOZZARELLA LIGHT",
+    "negozio": "Eurospin",
+    "prezzo": "2,29 €"
+  },
+  "offerta_113": {
+    "titolo": "ANELLI DI TOTANO ALLA ROMANA",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_114": {
+    "titolo": "FILETTI DI PLATESSA IMPANATI",
+    "negozio": "Eurospin",
+    "prezzo": "3,49 €"
+  },
+  "offerta_115": {
+    "titolo": "SUGO ALLO SCOGLIO",
+    "negozio": "Eurospin",
+    "prezzo": "2,55 €"
+  },
+  "offerta_116": {
+    "titolo": "TONNO AL NATURALE",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_117": {
+    "titolo": "CROCCANTI DI FILETTO DI MERLUZZO D'ALASKA",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_118": {
+    "titolo": "COZZE GRATINATE",
+    "negozio": "Eurospin",
+    "prezzo": "2,89 €"
+  },
+  "offerta_119": {
+    "titolo": "ZUPPA DI PESCE",
+    "negozio": "Eurospin",
+    "prezzo": "4,99 €"
+  },
+  "offerta_120": {
+    "titolo": "FAGIOLI E TONNO",
+    "negozio": "Eurospin",
+    "prezzo": "2,29 €"
+  },
+  "offerta_121": {
+    "titolo": "PISELLI E TONNO",
+    "negozio": "Eurospin",
+    "prezzo": "2,29 €"
+  },
+  "offerta_122": {
+    "titolo": "SET 6 BICCHIERI 25 CL 'KALEIDO' 'BORMIOLI ROCCO'",
+    "negozio": "Eurospin",
+    "prezzo": "3,49 €"
+  },
+  "offerta_123": {
+    "titolo": "SET 3 CONTENITORI FRIGOVERRE 'BORMIOLI ROCCO'",
+    "negozio": "Eurospin",
+    "prezzo": "9,99 €"
+  },
+  "offerta_124": {
+    "titolo": "COLTELLO VERDURA / GRATTUGGIA 4 LATI / GRATTUGIA",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_125": {
+    "titolo": "TAGLIERE / COLTELLO CHEF 20 CM / COLTELLO PANE 20",
+    "negozio": "Eurospin",
+    "prezzo": "4,99 €"
+  },
+  "offerta_126": {
+    "titolo": "PADELLA 20 CM / OLIERA SPRAY / COLINO 34 CM",
+    "negozio": "Eurospin",
+    "prezzo": "5,99 €"
+  },
+  "offerta_127": {
+    "titolo": "CASSERUOLA 16 CM / PADELLA 24 CM / CREPIERA 28 CM",
+    "negozio": "Eurospin",
+    "prezzo": "9,99 €"
+  },
+  "offerta_128": {
+    "titolo": "PADELLA 28 CM / BISTECCHIERA 28 CM / CASSERUOLA 2",
+    "negozio": "Eurospin",
+    "prezzo": "14,99 €"
+  },
+  "offerta_129": {
+    "titolo": "PADELLA 30 CM / WOK 28 CM / CASSERUOLA 24 CM",
+    "negozio": "Eurospin",
+    "prezzo": "19,99 €"
+  },
+  "offerta_130": {
+    "titolo": "SET DUE INSALATIERE 24 + 28 CM CON COPERCHIO 'FORME CASA'",
+    "negozio": "Eurospin",
+    "prezzo": "6,99 €"
+  },
+  "offerta_131": {
+    "titolo": "SET 3 CONTENITORI FRIGO 1400 CC 'FORME CASA'",
+    "negozio": "Eurospin",
+    "prezzo": "5,99 €"
+  },
+  "offerta_132": {
+    "titolo": "SET SCOLAPIATTI",
+    "negozio": "Eurospin",
+    "prezzo": "4,99 €"
+  },
+  "offerta_133": {
+    "titolo": "SUPPORTO PER MONITOR",
+    "negozio": "Eurospin",
+    "prezzo": "8,99 €"
+  },
+  "offerta_134": {
+    "titolo": "LIBRERIA",
+    "negozio": "Eurospin",
+    "prezzo": "19,99 €"
+  },
+  "offerta_135": {
+    "titolo": "MOBILETTO DUE ANTE E DUE VANI",
+    "negozio": "Eurospin",
+    "prezzo": "34,99 €"
+  },
+  "offerta_136": {
+    "titolo": "TEMPERAMATITE ELETTRICO",
+    "negozio": "Eurospin",
+    "prezzo": "3,99 €"
+  },
+  "offerta_137": {
+    "titolo": "SEDIA DA SCRIVANIA",
+    "negozio": "Eurospin",
+    "prezzo": "39,99 €"
+  },
+  "offerta_138": {
+    "titolo": "CASSETTIERA 4 CASSETTI",
+    "negozio": "Eurospin",
+    "prezzo": "16,99 €"
+  },
+  "offerta_139": {
+    "titolo": "MINI CASSETTIERA 3 CASSETTI FORMATO A5",
+    "negozio": "Eurospin",
+    "prezzo": "6,99 €"
+  },
+  "offerta_140": {
+    "titolo": "SET 4 PEZZI DISEGNO 'ARDA'",
+    "negozio": "Eurospin",
+    "prezzo": "3,99 €"
+  },
+  "offerta_141": {
+    "titolo": "SCRIVANIA",
+    "negozio": "Eurospin",
+    "prezzo": "69,99 €"
+  },
+  "offerta_142": {
+    "titolo": "LAMPADA LED DA TAVOLO",
+    "negozio": "Eurospin",
+    "prezzo": "9,99 €"
+  },
+  "offerta_143": {
+    "titolo": "CARTELLA 3 LEMBI A4 MONOCROMO DORSO 1,2 CM",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_144": {
+    "titolo": "CARTELLA AD ANELLI A4 MONOCROMO",
+    "negozio": "Eurospin",
+    "prezzo": "2,49 €"
+  },
+  "offerta_145": {
+    "titolo": "QUADERNI A4 MAXI MONOCROMO PUNTO METALLICO 1R/5M",
+    "negozio": "Eurospin",
+    "prezzo": "1,29 €"
+  },
+  "offerta_146": {
+    "titolo": "SET 13 PENNARELLI/ SET 13 MATITE COLORATE/ SET 2 MATITE + TEMPERINO + GOMMA",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_147": {
+    "titolo": "TAVOLINO E 2 SEDIE",
+    "negozio": "Eurospin",
+    "prezzo": "27,99 €"
+  },
+  "offerta_148": {
+    "titolo": "SCAFFALE PORTAOGGETTI",
+    "negozio": "Eurospin",
+    "prezzo": "24,99 €"
+  },
+  "offerta_149": {
+    "titolo": "SET 50 BUSTE FORATE TRASPARENTI A4",
+    "negozio": "Eurospin",
+    "prezzo": "2,49 €"
+  },
+  "offerta_150": {
+    "titolo": "LAMPADA DA TAVOLO",
+    "negozio": "Eurospin",
+    "prezzo": "6,99 €"
+  },
+  "offerta_151": {
+    "titolo": "SET 3 BUSTE IN EVA CON CERNIERA",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_152": {
+    "titolo": "ARTICOLI DI CANCELLERIA 'BECAPPY!' 'LEBEZ'",
+    "negozio": "Eurospin",
+    "prezzo": "5,99 €"
+  },
+  "offerta_153": {
+    "titolo": "SET 10 PENNE A SFERA A SCATTO 'OSAMA'/SET 2 CORRETTORI A NASTRO 20 M 'OSAMA'",
+    "negozio": "Eurospin",
+    "prezzo": "3,99 €"
+  },
+  "offerta_154": {
+    "titolo": "ARTICOLI DI CANCELLERIA 'OSAMA'",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_155": {
+    "titolo": "SET 5 COLLE STICK 10 G 'OSAMA'/PENNA A SFERA 4MULTI 'OSAMA'",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_156": {
+    "titolo": "SPEAKER BLUETOOTH® IMPERMEABILE 'BIJOUX'",
+    "negozio": "Eurospin",
+    "prezzo": "7,99 €"
+  },
+  "offerta_157": {
+    "titolo": "PELUCHE 30 CM",
+    "negozio": "Eurospin",
+    "prezzo": "7,99 €"
+  },
+  "offerta_158": {
+    "titolo": "SET CINGHIE TENSIONATRICI",
+    "negozio": "Eurospin",
+    "prezzo": "9,99 €"
+  },
+  "offerta_159": {
+    "titolo": "KIT PER AUTO 56 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "12,99 €"
+  },
+  "offerta_160": {
+    "titolo": "SET 4 TAPPETI AUTO",
+    "negozio": "Eurospin",
+    "prezzo": "7,99 €"
+  },
+  "offerta_161": {
+    "titolo": "CARRELLO MULTIUSO IN POLIPROPILENE",
+    "negozio": "Eurospin",
+    "prezzo": "29,99 €"
+  },
+  "offerta_162": {
+    "titolo": "PANNO IN PVA MAGIC DRYER",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_163": {
+    "titolo": "COPRIVOLANTE",
+    "negozio": "Eurospin",
+    "prezzo": "3,99 €"
+  },
+  "offerta_164": {
+    "titolo": "TORCIA LED CON KIT ATTREZZI",
+    "negozio": "Eurospin",
+    "prezzo": "9,99 €"
+  },
+  "offerta_165": {
+    "titolo": "IDROPULITRICE AD ALTA PRESSIONE",
+    "negozio": "Eurospin",
+    "prezzo": "59,99 €"
+  },
+  "offerta_166": {
+    "titolo": "BIDONE IN ACCIAIO ASPIRALIQUIDI E SOLIDI",
+    "negozio": "Eurospin",
+    "prezzo": "49,99 €"
+  },
+  "offerta_167": {
+    "titolo": "CARICABATTERIE AUTO",
+    "negozio": "Eurospin",
+    "prezzo": "12,99 €"
+  },
+  "offerta_168": {
+    "titolo": "KIT 2 PANNI IN MICROFIBRA",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_169": {
+    "titolo": "PINZE",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_170": {
+    "titolo": "SET COPRISEDILI PER AUTO",
+    "negozio": "Eurospin",
+    "prezzo": "16,99 €"
+  },
+  "offerta_171": {
+    "titolo": "ARTICOLI ASSORTITI PER LA PULIZIA E LA CURA DELL'AUTO",
+    "negozio": "Eurospin",
+    "prezzo": "2,99 €"
+  },
+  "offerta_172": {
+    "titolo": "VALIGETTA NERA CON PORTAUTENSILI",
+    "negozio": "Eurospin",
+    "prezzo": "24,99 €"
+  },
+  "offerta_173": {
+    "titolo": "LAVATRICE 'CANDY' CS1292DW4-1-11 9 KG",
+    "negozio": "Eurospin",
+    "prezzo": "259,99 €"
+  },
+  "offerta_174": {
+    "titolo": "RISO LUNGO B PARBOILED",
+    "negozio": "Eurospin",
+    "prezzo": "2,29 €"
+  },
+  "offerta_175": {
+    "titolo": "CUFFIE 'NORDMENDE' BTH16",
+    "negozio": "Eurospin",
+    "prezzo": "9,99 €"
+  },
+  "offerta_176": {
+    "titolo": "GELATO CON CREMA SPALMABILE NOCCIOLA E CACAO",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_177": {
+    "titolo": "GELATO CON CREMA SPALMABILE AL PISTACCHIO",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_178": {
+    "titolo": "GELATO CON CREMA SPALMABILE AL CARAMELLO SALATO",
+    "negozio": "Eurospin",
+    "prezzo": "1,99 €"
+  },
+  "offerta_179": {
+    "titolo": "FUSILLI / PENNE / SPAGHETTI TRE MULINI 500G",
+    "negozio": "Eurospin",
+    "prezzo": "0,49 €"
+  },
+  "offerta_180": {
+    "titolo": "PASTA DI SEMOLA ASSORTITA TRE MULINI 1KG",
+    "negozio": "Eurospin",
+    "prezzo": "0,89 €"
+  },
+  "offerta_181": {
+    "titolo": "PASSATA DI POMODORO DELIZIE DAL SOLE 700G",
+    "negozio": "Eurospin",
+    "prezzo": "0,69 €"
+  },
+  "offerta_182": {
+    "titolo": "LATTE UHT PARZIALMENTE SCREMATO LAND 1L",
+    "negozio": "Eurospin",
+    "prezzo": "0,79 €"
+  },
+  "offerta_183": {
     "titolo": "Cucina giocattolo in legno",
     "negozio": "Lidl",
     "prezzo": "49,00 €"
   },
-  "offerta_2": {
+  "offerta_184": {
     "titolo": "Friggitrice ad aria calda",
     "negozio": "Lidl",
     "prezzo": "69,00 €"
   },
-  "offerta_3": {
+  "offerta_185": {
     "titolo": "Montalatte elettrico",
     "negozio": "Lidl",
     "prezzo": "19,99 €"
   },
-  "offerta_4": {
+  "offerta_186": {
     "titolo": "Microonde, 17 L",
     "negozio": "Lidl",
     "prezzo": "49,00 €"
   },
-  "offerta_5": {
+  "offerta_187": {
     "titolo": "Macchina per caffè espresso",
     "negozio": "Lidl",
     "prezzo": "79,00 €"
   },
-  "offerta_6": {
+  "offerta_188": {
     "titolo": "Impastatrice planetaria, nera",
     "negozio": "Lidl",
     "prezzo": "49,00 €"
   },
-  "offerta_7": {
+  "offerta_189": {
     "titolo": "Macchina sigillasacchetti",
     "negozio": "Lidl",
     "prezzo": "19,99 €"
   },
-  "offerta_8": {
+  "offerta_190": {
     "titolo": "Mobile per lavatrice",
     "negozio": "Lidl",
     "prezzo": "49,00 €"
   },
-  "offerta_9": {
+  "offerta_191": {
     "titolo": "Macchina da cucire",
     "negozio": "Lidl",
     "prezzo": "99,00 €"
   },
-  "offerta_10": {
+  "offerta_192": {
     "titolo": "Barbecue a gas",
     "negozio": "Lidl",
     "prezzo": "249,00 €"
