@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La Mia Spesa Smart</title>
-  <!-- Widget ufficiale per il Login Privato di Netlify -->
+  <!-- Widget Netlify Identity per gestione inviti e login -->
   <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     * {
@@ -42,7 +42,6 @@
       background: radial-gradient(circle, #00d2ff 0%, #3a7bd5 100%);
       top: -50px;
       left: -80px;
-      animation-delay: 0s;
     }
 
     .blob-2 {
@@ -51,23 +50,6 @@
       background: radial-gradient(circle, #8a2be2 0%, #4a00e0 100%);
       bottom: -80px;
       right: -80px;
-      animation-delay: -4s;
-    }
-
-    .blob-3 {
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, #00f2fe 0%, #4facfe 100%);
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: -8s;
-    }
-
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(40px, 30px) scale(1.15); }
-      100% { transform: translate(-30px, 50px) scale(0.9); }
     }
 
     .container {
@@ -84,13 +66,63 @@
       max-width: 360px;
     }
 
+    /* Schermata di blocco per utenti non autenticati */
+    #lockScreen {
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    #lockScreen h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    #lockScreen p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 20px;
+    }
+
+    .auth-btn {
+      background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+    }
+
+    /* Area riservata agli utenti loggati */
+    #appContent {
+      display: none;
+    }
+
+    .user-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .logout-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
     h1 {
       margin-top: 0;
       font-size: 24px;
       color: #ffffff;
       text-align: center;
-      letter-spacing: 0.5px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     .input-box {
@@ -108,15 +140,6 @@
       font-size: 15px;
       color: #ffffff;
       outline: none;
-      transition: all 0.3s ease;
-    }
-
-    input::placeholder { color: rgba(255, 255, 255, 0.4); }
-
-    input:focus {
-      border-color: #00d2ff;
-      background: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
     }
 
     button.add-btn {
@@ -128,17 +151,9 @@
       font-weight: bold;
       font-size: 18px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
-      transition: transform 0.2s;
     }
 
-    button.add-btn:active { transform: scale(0.95); }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    ul { list-style: none; padding: 0; margin: 0; }
 
     li {
       display: flex;
@@ -149,16 +164,9 @@
       border-radius: 10px;
       margin-bottom: 10px;
       cursor: pointer;
-      transition: all 0.2s ease;
     }
 
-    li:hover { background: rgba(255, 255, 255, 0.08); }
-
-    li.completato {
-      opacity: 0.35;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
+    li.completato { opacity: 0.35; }
     li.completato .item-header span { text-decoration: line-through; }
 
     .item-header {
@@ -175,12 +183,7 @@
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
-      padding: 0 4px;
-      opacity: 0.7;
-      transition: opacity 0.2s;
     }
-
-    .delete-btn:hover { opacity: 1; }
 
     .clear-btn {
       width: 100%;
@@ -192,12 +195,6 @@
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .clear-btn:hover {
-      background: rgba(255, 59, 48, 0.25);
-      box-shadow: 0 0 15px rgba(255, 82, 82, 0.2);
     }
 
     .offerte-container {
@@ -217,88 +214,107 @@
       color: #e2e8f0;
     }
 
-    .badge-offerta.Lidl {
-      border-left-color: #facc15;
-      background: rgba(250, 204, 21, 0.1);
-    }
-
-    .badge-offerta.Eurospin {
-      border-left-color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-    }
-
-    .no-offerta {
-      color: rgba(255, 255, 255, 0.35);
-      font-style: italic;
-      font-size: 11px;
-    }
-
-    /* Pulsante di login Netlify integrato */
-    .login-box {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .login-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      cursor: pointer;
-    }
+    .badge-offerta.Lidl { border-left-color: #facc15; background: rgba(250, 204, 21, 0.1); }
+    .badge-offerta.Eurospin { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.1); }
+    .no-offerta { color: rgba(255, 255, 255, 0.35); font-style: italic; font-size: 11px; }
   </style>
 </head>
 <body>
 
   <div class="glow-blob blob-1"></div>
   <div class="glow-blob blob-2"></div>
-  <div class="glow-blob blob-3"></div>
 
   <div class="container">
-    <div class="login-box">
-      <div data-netlify-identity-button class="login-btn">Accedi / Registrati</div>
-    </div>
-
-    <h1>🛒 Lista della Spesa</h1>
     
-    <div class="input-box">
-      <input type="text" id="elementoInput" placeholder="Aggiungi oggetto...">
-      <button class="add-btn" onclick="aggiungiElemento()">+</button>
+    <!-- SCHERMATA DI BLOCCO -->
+    <div id="lockScreen">
+      🔒 <h2>Area Riservata</h2>
+      <p>Questa applicazione è accessibile solo su invito.</p>
+      <button class="auth-btn" onclick="openLogin()">Accedi con il tuo Invito</button>
     </div>
 
-    <ul id="listaSpesa"></ul>
+    <!-- CONTENUTO APP (Visibile solo agli utenti invitati e autenticati) -->
+    <div id="appContent">
+      <div class="user-header">
+        <span id="userEmail"></span>
+        <button class="logout-btn" onclick="logout()">Esci</button>
+      </div>
 
-    <button id="btnSvuota" class="clear-btn" onclick="svuotaLista()" style="display: none;">🗑️ Svuota Lista</button>
+      <h1>🛒 Lista della Spesa</h1>
+      
+      <div class="input-box">
+        <input type="text" id="elementoInput" placeholder="Aggiungi oggetto...">
+        <button class="add-btn" onclick="aggiungiElemento()">+</button>
+      </div>
+
+      <ul id="listaSpesa"></ul>
+
+      <button id="btnSvuota" class="clear-btn" onclick="svuotaLista()" style="display: none;">🗑️ Svuota Lista</button>
+    </div>
+
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      caricaLista();
-      
-      // Inizializza il widget Netlify Identity
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.reload();
-            });
-          }
-        });
-      }
-    });
-
     let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
     let datiOfferte = [];
 
-    fetch('offerte.json')
-      .then(res => res.json())
-      .then(data => {
-        datiOfferte = Object.values(data);
+    document.addEventListener("DOMContentLoaded", function() {
+      // Inizializza il widget Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          updateAuthUI(user);
+        });
+
+        window.netlifyIdentity.on("login", user => {
+          window.netlifyIdentity.close();
+          updateAuthUI(user);
+        });
+
+        window.netlifyIdentity.on("logout", () => {
+          updateAuthUI(null);
+        });
+      }
+
+      fetch('offerte.json')
+        .then(res => res.json())
+        .then(data => {
+          datiOfferte = Object.values(data);
+          mostraLista();
+        })
+        .catch(err => console.error("Errore carimento offerte:", err));
+
+      document.getElementById("elementoInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") aggiungiElemento();
+      });
+    });
+
+    function updateAuthUI(user) {
+      const lockScreen = document.getElementById("lockScreen");
+      const appContent = document.getElementById("appContent");
+      const userEmail = document.getElementById("userEmail");
+
+      if (user) {
+        lockScreen.style.display = "none";
+        appContent.style.display = "block";
+        userEmail.innerText = user.email;
         mostraLista();
-      })
-      .catch(err => console.error("Errore caricamento offerte:", err));
+      } else {
+        lockScreen.style.display = "block";
+        appContent.style.display = "none";
+      }
+    }
+
+    function openLogin() {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.open();
+      }
+    }
+
+    function logout() {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.logout();
+      }
+    }
 
     function salvaInMemoria() {
       localStorage.setItem("spesa", JSON.stringify(elementi));
@@ -307,6 +323,8 @@
     function mostraLista() {
       const ul = document.getElementById("listaSpesa");
       const btnSvuota = document.getElementById("btnSvuota");
+      if (!ul) return;
+      
       ul.innerHTML = "";
 
       if (elementi.length > 0) {
@@ -326,7 +344,6 @@
         };
 
         const parolaCercata = item.testo.toLowerCase().trim();
-
         const trovate = datiOfferte.filter(off => {
           const titolo = (off.titolo || "").toLowerCase();
           return titolo.includes(parolaCercata);
@@ -362,13 +379,11 @@
     function aggiungiElemento() {
       const input = document.getElementById("elementoInput");
       const testo = input.value.trim();
-
       if (testo === "") return;
 
       elementi.push({ testo: testo, comprato: false });
       salvaInMemoria();
       mostraLista();
-
       input.value = "";
     }
 
@@ -381,22 +396,11 @@
 
     function svuotaLista() {
       if (elementi.length === 0) return;
-
       if (confirm("Sei sicuro di voler cancellare tutta la lista?")) {
         elementi = [];
         salvaInMemoria();
         mostraLista();
       }
-    }
-
-    function caricaLista() {
-      mostraLista();
-      
-      document.getElementById("elementoInput").addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-          aggiungiElemento();
-        }
-      });
     }
   </script>
 
