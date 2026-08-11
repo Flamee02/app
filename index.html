@@ -3,307 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Mia Spesa Smart</title>
+  <title>Lista Spesa e Offerte</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 50px;
-      padding-bottom: 20px;
-      background-color: #08080c;
-      color: #ffffff;
-      overflow-x: hidden;
-      position: relative;
+      padding: 20px;
+      color: #333;
     }
-
-    /* Sfumature luminose e fluide in movimento sullo sfondo */
-    .glow-blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.45;
-      z-index: 0;
-      pointer-events: none;
-      animation: float 12s infinite alternate ease-in-out;
-    }
-
-    .blob-1 {
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, #00d2ff 0%, #3a7bd5 100%);
-      top: -50px;
-      left: -80px;
-      animation-delay: 0s;
-    }
-
-    .blob-2 {
-      width: 360px;
-      height: 360px;
-      background: radial-gradient(circle, #8a2be2 0%, #4a00e0 100%);
-      bottom: -80px;
-      right: -80px;
-      animation-delay: -4s;
-    }
-
-    .blob-3 {
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, #00f2fe 0%, #4facfe 100%);
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: -8s;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-      50% {
-        transform: translate(40px, 30px) scale(1.15);
-      }
-      100% {
-        transform: translate(-30px, 50px) scale(0.9);
-      }
-    }
-
-    /* Contenitore stile Glassmorphism */
     .container {
-      position: relative;
-      z-index: 1;
-      background: rgba(18, 18, 26, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      width: 90%;
-      max-width: 360px;
+      max-width: 600px;
+      margin: 0 auto;
     }
-
     h1 {
-      margin-top: 0;
-      font-size: 24px;
-      color: #ffffff;
       text-align: center;
-      letter-spacing: 0.5px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      color: #1e293b;
     }
-
-    .input-box {
+    .input-group {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 20px;
     }
-
-    input {
+    input[type="text"] {
       flex: 1;
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      font-size: 15px;
-      color: #ffffff;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
       outline: none;
-      transition: all 0.3s ease;
     }
-
-    input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
+    input[type="text"]:focus {
+      border-color: #2563eb;
     }
-
-    input:focus {
-      border-color: #00d2ff;
-      background: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
-    }
-
-    button.add-btn {
-      background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+    button {
+      padding: 12px 20px;
+      background-color: #2563eb;
       color: white;
       border: none;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 18px;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
-      transition: transform 0.2s;
+      font-weight: bold;
     }
-
-    button.add-btn:active {
-      transform: scale(0.95);
+    button:hover {
+      background-color: #1d4ed8;
     }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .item-card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-
-    li {
+    .item-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
       margin-bottom: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
     }
-
-    li:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    li.completato {
-      text-decoration: line-through;
-      opacity: 0.35;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .delete-btn {
-      background: none;
+    .btn-del {
+      background: #ef4444;
+      color: white;
       border: none;
-      color: #ff4d4d;
-      font-weight: bold;
-      font-size: 16px;
+      border-radius: 5px;
+      padding: 5px 10px;
       cursor: pointer;
-      padding: 0 4px;
-      opacity: 0.7;
-      transition: opacity 0.2s;
+      font-size: 12px;
     }
-
-    .delete-btn:hover {
-      opacity: 1;
+    .offerte-list {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #f1f5f9;
     }
-
-    .clear-btn {
-      width: 100%;
-      margin-top: 15px;
-      padding: 12px;
-      background: rgba(255, 59, 48, 0.15);
-      color: #ff5252;
-      border: 1px solid rgba(255, 82, 82, 0.3);
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    .offerta-tag {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid #16a34a;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-top: 5px;
+      font-size: 14px;
     }
-
-    .clear-btn:hover {
-      background: rgba(255, 59, 48, 0.25);
-      box-shadow: 0 0 15px rgba(255, 82, 82, 0.2);
+    .offerta-tag.Eurospin {
+      border-left-color: #0284c7;
+      background: #f0f9ff;
+    }
+    .offerta-tag.Lidl {
+      border-left-color: #eab308;
+      background: #fefce8;
+    }
+    .no-offerta {
+      color: #94a3b8;
+      font-size: 13px;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
 
-  <!-- Sfumature animate sullo sfondo -->
-  <div class="glow-blob blob-1"></div>
-  <div class="glow-blob blob-2"></div>
-  <div class="glow-blob blob-3"></div>
-
   <div class="container">
-    <h1>🛒 Lista della Spesa</h1>
+    <h1>🛒 Lista della Spesa Smart</h1>
     
-    <div class="input-box">
-      <input type="text" id="elementoInput" placeholder="Aggiungi oggetto...">
-      <button class="add-btn" onclick="aggiungiElemento()">+</button>
+    <div class="input-group">
+      <input type="text" id="prodottoInput" placeholder="Aggiungi prodotto (es. pane, latte)...">
+      <button onclick="aggiungiProdotto()">Aggiungi</button>
     </div>
 
-    <ul id="listaSpesa"></ul>
-
-    <button id="btnSvuota" class="clear-btn" onclick="svuotaLista()" style="display: none;">🗑️ Svuota Lista</button>
+    <div id="listaSpesa"></div>
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", caricaLista);
+    let offerteVolantino = [];
+    let listaProdotti = [];
 
-    let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
+    // Carica le offerte scaricate dallo scraper Python
+    fetch('offerte.json')
+      .then(res => res.json())
+      .then(data => {
+        offerteVolantino = Object.values(data);
+      })
+      .catch(err => console.error("Errore caricamento offerte:", err));
 
-    function salvaInMemoria() {
-      localStorage.setItem("spesa", JSON.stringify(elementi));
+    function aggiungiProdotto() {
+      const input = document.getElementById('prodottoInput');
+      const nome = input.value.trim();
+      
+      if (nome === "") return;
+
+      listaProdotti.push(nome);
+      input.value = "";
+      aggiornaGrafica();
     }
 
-    function mostraLista() {
-      const ul = document.getElementById("listaSpesa");
-      const btnSvuota = document.getElementById("btnSvuota");
-      ul.innerHTML = "";
+    function rimuoviProdotto(index) {
+      listaProdotti.splice(index, 1);
+      aggiornaGrafica();
+    }
 
-      if (elementi.length > 0) {
-        btnSvuota.style.display = "block";
-      } else {
-        btnSvuota.style.display = "none";
-      }
+    function aggiornaGrafica() {
+      const container = document.getElementById('listaSpesa');
+      container.innerHTML = "";
 
-      elementi.forEach((item, index) => {
-        const li = document.createElement("li");
-        if (item.comprato) li.classList.add("completato");
+      listaProdotti.forEach((prodotto, index) => {
+        const card = document.createElement('div');
+        card.className = "item-card";
 
-        li.onclick = function() {
-          elementi[index].comprato = !elementi[index].comprato;
-          salvaInMemoria();
-          mostraLista();
-        };
+        // Cerca se il prodotto inserito corrisponde a un'offerta presente nei volantini
+        const offerteTrovate = offerteVolantino.filter(off => 
+          off.titolo.toLowerCase().includes(prodotto.toLowerCase())
+        );
 
-        li.innerHTML = `
-          <span>${item.testo}</span>
-          <button class="delete-btn" onclick="eliminaElemento(event, ${index})">✕</button>
+        let htmlOfferte = "";
+        if (offerteTrovate.length > 0) {
+          offerteTrovate.forEach(off => {
+            htmlOfferte += `
+              <div class="offerta-tag ${off.negozio}">
+                <strong>📍 ${off.negozio}:</strong> ${off.titolo} — <span style="color: #16a34a; font-weight: bold;">${off.prezzo}</span>
+              </div>
+            `;
+          });
+        } else {
+          htmlOfferte = `<div class="no-offerta">Nessuna offerta trovata questa settimana per "${prodotto}".</div>`;
+        }
+
+        card.innerHTML = `
+          <div class="item-header">
+            <span>📌 ${prodotto}</span>
+            <button class="btn-del" onclick="rimuoviProdotto(${index})">Elimina</button>
+          </div>
+          <div class="offerte-list">
+            ${htmlOfferte}
+          </div>
         `;
 
-        ul.appendChild(li);
-      });
-    }
-
-    function aggiungiElemento() {
-      const input = document.getElementById("elementoInput");
-      const testo = input.value.trim();
-
-      if (testo === "") return;
-
-      elementi.push({ testo: testo, comprato: false });
-      salvaInMemoria();
-      mostraLista();
-
-      input.value = "";
-    }
-
-    function eliminaElemento(event, index) {
-      event.stopPropagation();
-      elementi.splice(index, 1);
-      salvaInMemoria();
-      mostraLista();
-    }
-
-    function svuotaLista() {
-      if (elementi.length === 0) return;
-
-      if (confirm("Sei sicuro di voler cancellare tutta la lista?")) {
-        elementi = [];
-        salvaInMemoria();
-        mostraLista();
-      }
-    }
-
-    function caricaLista() {
-      mostraLista();
-      
-      document.getElementById("elementoInput").addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-          aggiungiElemento();
-        }
+        container.appendChild(card);
       });
     }
   </script>
