@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La Mia Spesa Smart</title>
+  <!-- Widget ufficiale per il Login Privato di Netlify -->
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -24,7 +26,6 @@
       position: relative;
     }
 
-    /* Sfumature luminose e fluide in movimento sullo sfondo */
     .glow-blob {
       position: fixed;
       border-radius: 50%;
@@ -64,18 +65,11 @@
     }
 
     @keyframes float {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-      50% {
-        transform: translate(40px, 30px) scale(1.15);
-      }
-      100% {
-        transform: translate(-30px, 50px) scale(0.9);
-      }
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, 30px) scale(1.15); }
+      100% { transform: translate(-30px, 50px) scale(0.9); }
     }
 
-    /* Contenitore stile Glassmorphism */
     .container {
       position: relative;
       z-index: 1;
@@ -117,9 +111,7 @@
       transition: all 0.3s ease;
     }
 
-    input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
-    }
+    input::placeholder { color: rgba(255, 255, 255, 0.4); }
 
     input:focus {
       border-color: #00d2ff;
@@ -140,9 +132,7 @@
       transition: transform 0.2s;
     }
 
-    button.add-btn:active {
-      transform: scale(0.95);
-    }
+    button.add-btn:active { transform: scale(0.95); }
 
     ul {
       list-style: none;
@@ -162,18 +152,14 @@
       transition: all 0.2s ease;
     }
 
-    li:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
+    li:hover { background: rgba(255, 255, 255, 0.08); }
 
     li.completato {
       opacity: 0.35;
       background: rgba(255, 255, 255, 0.02);
     }
 
-    li.completato .item-header span {
-      text-decoration: line-through;
-    }
+    li.completato .item-header span { text-decoration: line-through; }
 
     .item-header {
       display: flex;
@@ -194,9 +180,7 @@
       transition: opacity 0.2s;
     }
 
-    .delete-btn:hover {
-      opacity: 1;
-    }
+    .delete-btn:hover { opacity: 1; }
 
     .clear-btn {
       width: 100%;
@@ -216,7 +200,6 @@
       box-shadow: 0 0 15px rgba(255, 82, 82, 0.2);
     }
 
-    /* Moduli per il visualizzatore offerte integrato */
     .offerte-container {
       margin-top: 8px;
       padding-top: 8px;
@@ -249,16 +232,35 @@
       font-style: italic;
       font-size: 11px;
     }
+
+    /* Pulsante di login Netlify integrato */
+    .login-box {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .login-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Sfumature animate sullo sfondo -->
   <div class="glow-blob blob-1"></div>
   <div class="glow-blob blob-2"></div>
   <div class="glow-blob blob-3"></div>
 
   <div class="container">
+    <div class="login-box">
+      <div data-netlify-identity-button class="login-btn">Accedi / Registrati</div>
+    </div>
+
     <h1>🛒 Lista della Spesa</h1>
     
     <div class="input-box">
@@ -272,12 +274,24 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", caricaLista);
+    document.addEventListener("DOMContentLoaded", function() {
+      caricaLista();
+      
+      // Inizializza il widget Netlify Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.reload();
+            });
+          }
+        });
+      }
+    });
 
     let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
     let datiOfferte = [];
 
-    // Carica il file offerte.json estratto dal Python Scraper
     fetch('offerte.json')
       .then(res => res.json())
       .then(data => {
@@ -311,10 +325,8 @@
           mostraLista();
         };
 
-        // Pulisce e confronta la parola cercata
         const parolaCercata = item.testo.toLowerCase().trim();
 
-        // Cerca sia nel titolo che nell'eventuale descrizione dell'offerta
         const trovate = datiOfferte.filter(off => {
           const titolo = (off.titolo || "").toLowerCase();
           return titolo.includes(parolaCercata);
