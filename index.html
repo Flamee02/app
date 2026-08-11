@@ -16,10 +16,11 @@
       margin: 0;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
       padding-top: 30px;
-      padding-bottom: 30px;
+      padding-bottom: 20px;
       background-color: #08080c;
       color: #ffffff;
       overflow-x: hidden;
@@ -64,9 +65,10 @@
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
       width: 92%;
       max-width: 400px;
+      margin-bottom: 20px;
     }
 
-    /* Schermata di blocco per utenti non autenticati */
+    /* Schermata di blocco */
     #lockScreen {
       text-align: center;
       padding: 30px 10px;
@@ -95,7 +97,6 @@
       box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
     }
 
-    /* Area riservata agli utenti loggati */
     #appContent {
       display: none;
     }
@@ -183,56 +184,20 @@
       cursor: pointer;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .suggestion-item:hover {
       background: rgba(255, 255, 255, 0.1);
     }
 
-    /* Filtri Rapidi */
-    .filter-bar {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 15px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-
-    .filter-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.6);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .filter-btn.active {
-      background: rgba(0, 210, 255, 0.2);
-      border-color: #00d2ff;
-      color: #00d2ff;
-      font-weight: bold;
-    }
-
-    /* Gruppi di Liste */
-    .group-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.4);
-      margin: 15px 0 8px 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
     ul { list-style: none; padding: 0; margin: 0; }
 
+    /* Elementi Lista Compatti con Logo */
     li {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
       padding: 10px 12px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -241,14 +206,47 @@
       cursor: pointer;
     }
 
-    li.completato { opacity: 0.35; }
-    li.completato .item-header span { text-decoration: line-through; }
+    li.completato {
+      opacity: 0.35;
+    }
 
-    .item-header {
+    li.completato .item-text {
+      text-decoration: line-through;
+    }
+
+    .item-content {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 82%;
+    }
+
+    .item-text {
+      font-size: 14px;
+      color: #ffffff;
+      word-break: break-word;
+    }
+
+    /* Stile per i loghi dei negozi */
+    .store-tag {
+      display: inline-flex;
       align-items: center;
-      width: 100%;
+      gap: 6px;
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .logo-img {
+      height: 16px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 2px;
+      vertical-align: middle;
+    }
+
+    .store-price {
+      color: #4ade80;
+      font-weight: bold;
     }
 
     .delete-btn {
@@ -258,6 +256,7 @@
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
+      padding: 4px 8px;
     }
 
     .clear-btn {
@@ -272,25 +271,17 @@
       cursor: pointer;
     }
 
-    .offerte-container {
-      margin-top: 6px;
-      padding-top: 6px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* Crediti in basso a destra */
+    .footer-credits {
+      width: 100%;
+      max-width: 400px;
+      text-align: right;
+      padding-right: 15px;
       font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      z-index: 1;
+      letter-spacing: 0.5px;
     }
-
-    .badge-offerta {
-      display: block;
-      margin-top: 3px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      border-left: 3px solid #00d2ff;
-      color: #e2e8f0;
-    }
-
-    .badge-offerta.Lidl { border-left-color: #facc15; background: rgba(250, 204, 21, 0.1); }
-    .badge-offerta.Eurospin { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.1); }
   </style>
 </head>
 <body>
@@ -316,35 +307,37 @@
 
       <h1>🛒 Lista della Spesa</h1>
 
-      <!-- Input con Autocompletamento -->
+      <!-- Input con Autocompletamento Anteprima -->
       <div class="input-wrapper">
         <div class="input-box">
-          <input type="text" id="elementoInput" placeholder="Aggiungi o cerca prodotto..." oninput="gestisciSuggerimenti()">
+          <input type="text" id="elementoInput" placeholder="Aggiungi oggetto..." oninput="gestisciSuggerimenti()">
           <button class="add-btn" onclick="aggiungiElemento()">+</button>
         </div>
         <div id="suggestionsBox" class="suggestions-box"></div>
       </div>
 
-      <!-- Filtri Rapidi -->
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="setFiltro('tutti', this)">Tutti</button>
-        <button class="filter-btn" onclick="setFiltro('da_comprare', this)">Da comprare</button>
-        <button class="filter-btn" onclick="setFiltro('in_offerta', this)">In Offerta 🔥</button>
-        <button class="filter-btn" onclick="setFiltro('comprati', this)">Comprati</button>
-      </div>
-
-      <!-- Contenitore Liste Raggruppate per Negozio -->
-      <div id="listeContainer"></div>
+      <!-- Lista degli elementi -->
+      <ul id="listaSpesa"></ul>
 
       <button id="btnSvuota" class="clear-btn" onclick="svuotaLista()" style="display: none;">🗑️ Svuota Lista</button>
     </div>
 
   </div>
 
+  <!-- CREDITI IN BASSO A DESTRA -->
+  <div class="footer-credits">
+    Created by Gian Luca Trabucco
+  </div>
+
   <script>
     let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
     let datiOfferte = [];
-    let filtroAttivo = 'tutti';
+
+    // URL dei loghi ufficiali
+    const LOGHI_NEGOZI = {
+      'Lidl': 'https://upload.wikimedia.org/wikipedia/commons/9/91/Lidl-Logo.svg',
+      'Eurospin': 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Eurospin_logo.svg'
+    };
 
     document.addEventListener("DOMContentLoaded", function() {
       if (window.netlifyIdentity) {
@@ -390,7 +383,14 @@
 
     function salvaInMemoria() { localStorage.setItem("spesa", JSON.stringify(elementi)); }
 
-    /* Autocompletamento */
+    function getLogoHTML(negozio) {
+      if (LOGHI_NEGOZI[negozio]) {
+        return `<img src="${LOGHI_NEGOZI[negozio]}" alt="${negozio}" class="logo-img">`;
+      }
+      return `<span>📍 ${negozio}</span>`;
+    }
+
+    /* Autocompletamento Anteprima */
     function gestisciSuggerimenti() {
       const input = document.getElementById("elementoInput");
       const box = document.getElementById("suggestionsBox");
@@ -412,11 +412,13 @@
       trovati.forEach(off => {
         const item = document.createElement("div");
         item.className = "suggestion-item";
-        item.innerHTML = `<span><strong>${off.negozio}:</strong> ${off.titolo}</span> <span style="color:#4ade80">${off.prezzo}</span>`;
+        const logo = getLogoHTML(off.negozio);
+        item.innerHTML = `<span style="display:flex; align-items:center; gap:6px;">${logo} ${off.titolo}</span> <span style="color:#4ade80; font-weight:bold;">${off.prezzo}</span>`;
+        
         item.onclick = function() {
           input.value = off.titolo;
           box.style.display = "none";
-          aggiungiElemento();
+          aggiungiElementoConDettagli(off.titolo, off.negozio, off.prezzo);
         };
         box.appendChild(item);
       });
@@ -427,102 +429,46 @@
       setTimeout(() => { document.getElementById("suggestionsBox").style.display = "none"; }, 200);
     }
 
-    /* Gestione Filtri */
-    function setFiltro(tipo, btn) {
-      filtroAttivo = tipo;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      mostraLista();
-    }
-
-    /* Rendering e Raggruppamento per Negozio */
+    /* Rendering Lista */
     function mostraLista() {
-      const container = document.getElementById("listeContainer");
+      const ul = document.getElementById("listaSpesa");
       const btnSvuota = document.getElementById("btnSvuota");
-      if (!container) return;
+      if (!ul) return;
       
-      container.innerHTML = "";
+      ul.innerHTML = "";
       btnSvuota.style.display = elementi.length > 0 ? "block" : "none";
 
-      // Filtra elementi
-      let filtrati = elementi.map((item, index) => ({ ...item, originalIndex: index })).filter(item => {
-        if (filtroAttivo === 'da_comprare') return !item.comprato;
-        if (filtroAttivo === 'comprati') return item.comprato;
-        if (filtroAttivo === 'in_offerta') {
-          const t = item.testo.toLowerCase().trim();
-          return datiOfferte.some(off => (off.titolo || "").toLowerCase().includes(t));
-        }
-        return true;
-      });
+      elementi.forEach((item, index) => {
+        const li = document.createElement("li");
+        if (item.comprato) li.classList.add("completato");
 
-      // Raggruppa per Negozio
-      const gruppi = { 'Lidl': [], 'Eurospin': [], 'Altri Prodotti': [], 'Completati': [] };
+        li.onclick = function() {
+          elementi[index].comprato = !elementi[index].comprato;
+          salvaInMemoria();
+          mostraLista();
+        };
 
-      filtrati.forEach(item => {
-        if (item.comprato) {
-          gruppi['Completati'].push(item);
-          return;
-        }
-
-        const parola = item.testo.toLowerCase().trim();
-        const off = datiOfferte.find(o => (o.titolo || "").toLowerCase().includes(parola));
-
-        if (off && gruppi[off.negozio]) {
-          gruppi[off.negozio].push(item);
+        // Gestione logo e dettagli offerta
+        let tagNegozioHTML = "";
+        if (item.negozio) {
+          tagNegozioHTML = `<div class="store-tag">${getLogoHTML(item.negozio)} <span class="store-price">${item.prezzo || ''}</span></div>`;
         } else {
-          gruppi['Altri Prodotti'].push(item);
-        }
-      });
-
-      // Genera HTML per ogni gruppo
-      Object.keys(gruppi).forEach(nomeGruppo => {
-        const listaGruppo = gruppi[nomeGruppo];
-        if (listaGruppo.length === 0) return;
-
-        const gruppoDiv = document.createElement("div");
-        gruppoDiv.innerHTML = `<div class="group-title">${getIconaGruppo(nomeGruppo)} ${nomeGruppo}</div>`;
-        const ul = document.createElement("ul");
-
-        listaGruppo.forEach(item => {
-          const li = document.createElement("li");
-          if (item.comprato) li.classList.add("completato");
-
-          li.onclick = function() {
-            elementi[item.originalIndex].comprato = !elementi[item.originalIndex].comprato;
-            salvaInMemoria();
-            mostraLista();
-          };
-
           const parola = item.testo.toLowerCase().trim();
-          const trovate = datiOfferte.filter(off => (off.titolo || "").toLowerCase().includes(parola));
-
-          let htmlOfferte = "";
-          if (trovate.length > 0) {
-            trovate.forEach(off => {
-              htmlOfferte += `<div class="badge-offerta ${off.negozio}"><strong>📍 ${off.negozio}:</strong> ${off.titolo} — <span style="color: #4ade80; font-weight: bold;">${off.prezzo}</span></div>`;
-            });
+          const off = datiOfferte.find(o => (o.titolo || "").toLowerCase().includes(parola));
+          if (off) {
+            tagNegozioHTML = `<div class="store-tag">${getLogoHTML(off.negozio)} <span class="store-price">${off.prezzo}</span></div>`;
           }
+        }
 
-          li.innerHTML = `
-            <div class="item-header">
-              <span>${item.testo}</span>
-              <button class="delete-btn" onclick="eliminaElemento(event, ${item.originalIndex})">✕</button>
-            </div>
-            ${htmlOfferte ? `<div class="offerte-container">${htmlOfferte}</div>` : ''}
-          `;
-          ul.appendChild(li);
-        });
-
-        gruppoDiv.appendChild(ul);
-        container.appendChild(gruppoDiv);
+        li.innerHTML = `
+          <div class="item-content">
+            <span class="item-text">${item.testo}</span>
+            ${tagNegozioHTML}
+          </div>
+          <button class="delete-btn" onclick="eliminaElemento(event, ${index})">✕</button>
+        `;
+        ul.appendChild(li);
       });
-    }
-
-    function getIconaGruppo(nome) {
-      if (nome === 'Lidl') return '🟡';
-      if (nome === 'Eurospin') return '🔵';
-      if (nome === 'Completati') return '✅';
-      return '📦';
     }
 
     function aggiungiElemento() {
@@ -534,6 +480,13 @@
       salvaInMemoria();
       mostraLista();
       input.value = "";
+    }
+
+    function aggiungiElementoConDettagli(testo, negozio, prezzo) {
+      elementi.push({ testo: testo, negozio: negozio, prezzo: prezzo, comprato: false });
+      salvaInMemoria();
+      mostraLista();
+      document.getElementById("elementoInput").value = "";
     }
 
     function eliminaElemento(event, index) {
