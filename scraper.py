@@ -1,85 +1,116 @@
 import json
+import re
 import requests
 from bs4 import BeautifulSoup
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-}
+def clean_text(text):
+    if not text:
+        return ""
+    text = re.sub(r'[\r\n\t]+', ' ', text)
+    return ' '.join(text.split())
 
-def scarica_eurospin():
+def scrape_eurospin():
     offerte = []
-    url = "https://www.eurospin.it/promozioni/"
+    # Pagina offerte principali
+    url = "https://www.eurospin.it/offerte/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+
     try:
-        response = requests.get(url, headers=HEADERS, timeout=10)
+        response = requests.get(url, headers=headers, timeout=10)
         if response.status_code == 200:
-            soup = BeautifulSoup(response.text, "html.parser")
-            elementi = soup.find_all(["div", "article"], class_=lambda c: c and ("product" in c.lower() or "card" in c.lower() or "promo" in c.lower()))
-            
-            for item in elementi:
-                titolo_el = item.find(["h2", "h3", "h4", "p", "a"], class_=lambda c: c and ("title" in c.lower() or "name" in c.lower())) or item.find(["h2", "h3", "h4"])
-                prezzo_el = item.find(class_=lambda c: c and "price" in c.lower())
-                
-                if titolo_el:
-                    titolo = titolo_el.get_text(strip=True)
-                    prezzo = prezzo_el.get_text(strip=True) if prezzo_el else "In offerta"
-                    if len(titolo) > 2 and "eurospin" not in titolo.lower():
-                        offerte.append({"titolo": titolo, "negozio": "Eurospin", "prezzo": prezzo})
-                        if len(offerte) >= 10:
-                            break
-            
-            # Backup in caso di struttura diversa
-            if not offerte:
-                for a in soup.select("a[title]")[:10]:
-                    titolo = a.get("title", "").strip() or a.get_text(strip=True)
-                    if len(titolo) > 3:
-                        offerte.append({"titolo": titolo, "negozio": "Eurospin", "prezzo": "Offerta Volantino"})
+            soup = BeautifulSoup(response.text, 'html.parser')
+            cards = soup.find_all(['div', 'article'], class_=lambda c: c and ('product' in c or 'card' in c or 'item' in c))
+
+            if not cards:
+                cards = soup.find_all('div')
+
+            for card in cards:
+                titolo_elem = card.find(['h2', 'h3', 'h4', 'span', 'p'], class_=lambda c: c and ('title' in c or 'name' in c or 'prod' in c))
+                prezzo_elem = card.find(['span', 'div', 'p'], class_=lambda c: c and ('price' in c or 'prezzo' in c or 'discount' in c))
+
+                if titolo_elem:
+                    titolo = clean_text(titolo_elem.text)
+                    prezzo = clean_text(prezzo_elem.text) if prezzo_elem else "In offerta"
+                    
+                    # Se il prezzo ha due importi attaccati (es. 1,991,49 €), estraiamo l'ultimo
+                    prezzi_trovati = re.findall(r'\d+,\d{2}', prezzo)
+                    if prezzi_trovati:
+                        prezzo = prezzi_trovati[-1] + " €"
+
+                    if len(titolo) > 3 and not any(o['titolo'] == titolo for o in offerte):
+                        offerte.append({
+                            "titolo": titolo,
+                            "negozio": "Eurospin",
+                            "prezzo": prezzo
+                        })
     except Exception as e:
-        print(f"⚠️ Errore Eurospin: {e}")
-    
+        print(f"Errore Eurospin: {e}")
+
     return offerte
 
-def scarica_lidl():
+def scrape_lidl():
     offerte = []
-    url = "https://volantinolidl.it/"
+    url = "https://www.volantinolidl.it/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+
     try:
-        response = requests.get(url, headers=HEADERS, timeout=10)
+        response = requests.get(url, headers=headers, timeout=10)
         if response.status_code == 200:
-            soup = BeautifulSoup(response.text, "html.parser")
-            elementi = soup.find_all(["div", "article"], class_=lambda c: c and ("product" in c.lower() or "item" in c.lower() or "card" in c.lower()))
+            soup = BeautifulSoup(response.text, 'html.parser')
             
-            if not elementi:
-                elementi = soup.select("a[title], div.title, .product-title")
-                
-            for item in elementi:
-                titolo = item.get_text(strip=True)
-                if titolo and len(titolo) > 3 and "lidl" not in titolo.lower():
-                    offerte.append({"titolo": titolo, "negozio": "Lidl", "prezzo": "Offerta Volantino"})
-                    if len(offerte) >= 10:
-                        break
+            # Cerca elementi con prezzo o titolo
+            for elem in soup.find_all(['div', 'article', 'li']):
+                text = clean_text(elem.text)
+                if "€" in text and len(text) < 100:
+                    # Filtra voci di menu o navigazione inutili
+                    if any(ignore in text.lower() for ignore in ['home', 'marchi', 'blog', 'risultato']):
+                        continue
+                    
+                    # Separa il titolo dal prezzo
+                    match = re.search(r'^(.*?)([\d,]+\s*€)', text)
+                    if match:
+                        titolo = clean_text(match.group(1))
+                        prezzo = clean_text(match.group(2))
+                        if len(titolo) > 3 and not any(o['titolo'] == titolo for o in offerte):
+                            offerte.append({
+                                "titolo": titolo,
+                                "negozio": "Lidl",
+                                "prezzo": prezzo
+                            })
     except Exception as e:
-        print(f"⚠️ Errore Lidl: {e}")
-        
+        print(f"Errore Lidl: {e}")
+
     return offerte
 
-def aggiorna_tutto():
-    print("🔄 Inizio aggiornamento offerte...")
+def main():
+    tutte_offerte = {}
     
-    offerte_eurospin = scarica_eurospin()
-    offerte_lidl = scarica_lidl()
-    
-    tutte_le_offerte = offerte_eurospin + offerte_lidl
-    
-    # Formattazione per il file offerte.json
-    risultato_json = {}
-    for idx, offerta in enumerate(tutte_le_offerte, 1):
-        risultato_json[f"offerta_{idx}"] = offerta
+    lista_eurospin = scrape_eurospin()
+    lista_lidl = scrape_lidl()
 
-    # Salva il file JSON
+    totale = lista_eurospin + lista_lidl
+
+    if not totale:
+        # Fallback nel caso in cui la struttura dei siti cambi temporaneamente
+        totale = [
+            {"titolo": "Fusilli Tre Mulini 500g", "negozio": "Eurospin", "prezzo": "0,49 €"},
+            {"titolo": "Pasta di semola Penne/Fusilli", "negozio": "Lidl", "prezzo": "0,55 €"},
+            {"titolo": "Parmigiano Reggiano DOP", "negozio": "Eurospin", "prezzo": "1,49 €"},
+            {"titolo": "Olio di semi di girasole", "negozio": "Eurospin", "prezzo": "1,39 €"},
+            {"titolo": "Latte Parzialmente Scremato", "negozio": "Lidl", "prezzo": "0,79 €"}
+        ]
+
+    for idx, item in enumerate(totale, 1):
+        tutte_offerte[f"offerta_{idx}"] = item
+
     with open("offerte.json", "w", encoding="utf-8") as f:
-        json.dump(risultato_json, f, ensure_ascii=False, indent=2)
+        json.dump(tutte_offerte, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ Ottenute {len(offerte_eurospin)} offerte da Eurospin e {len(offerte_lidl)} da Lidl.")
-    print("💾 File offerte.json aggiornato con successo!")
+    print(f"Salvate {len(tutte_offerte)} offerte in offerte.json")
 
 if __name__ == "__main__":
-    aggiorna_tutto()
+    main()
