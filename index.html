@@ -5,181 +5,183 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista Spesa e Offerte</title>
   <style>
+    /* Stile e sfondo originale */
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
       margin: 0;
       padding: 20px;
-      color: #333;
     }
     .container {
       max-width: 600px;
       margin: 0 auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
-      color: #1e293b;
+      color: #333;
     }
-    .input-group {
+    .input-box {
       display: flex;
       gap: 10px;
       margin-bottom: 20px;
     }
     input[type="text"] {
       flex: 1;
-      padding: 12px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
       font-size: 16px;
-      border: 2px solid #cbd5e1;
-      border-radius: 8px;
-      outline: none;
-    }
-    input[type="text"]:focus {
-      border-color: #2563eb;
     }
     button {
-      padding: 12px 20px;
-      background-color: #2563eb;
+      padding: 10px 15px;
+      background-color: #007bff;
       color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: 4px;
       cursor: pointer;
-      font-weight: bold;
+      font-size: 16px;
     }
     button:hover {
-      background-color: #1d4ed8;
+      background-color: #0056b3;
     }
-    .item-card {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    ul {
+      list-style-type: none;
+      padding: 0;
     }
-    .item-header {
+    li {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .item-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 18px;
       font-weight: bold;
-      margin-bottom: 10px;
     }
     .btn-del {
-      background: #ef4444;
+      background-color: #dc3545;
       color: white;
       border: none;
-      border-radius: 5px;
       padding: 5px 10px;
+      border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
     }
-    .offerte-list {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #f1f5f9;
-    }
-    .offerta-tag {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-left: 4px solid #16a34a;
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin-top: 5px;
+    /* Blocco offerte integrato sotto/affianco al prodotto */
+    .offerte-container {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed #ccc;
       font-size: 14px;
+      font-weight: normal;
     }
-    .offerta-tag.Eurospin {
-      border-left-color: #0284c7;
-      background: #f0f9ff;
+    .badge-offerta {
+      display: block;
+      margin-top: 4px;
+      padding: 4px 8px;
+      border-radius: 3px;
+      background-color: #e9ecef;
+      color: #212529;
     }
-    .offerta-tag.Lidl {
-      border-left-color: #eab308;
-      background: #fefce8;
+    .badge-offerta.Lidl {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+    }
+    .badge-offerta.Eurospin {
+      background-color: #cce5ff;
+      border-left: 4px solid #004085;
     }
     .no-offerta {
-      color: #94a3b8;
-      font-size: 13px;
+      color: #888;
       font-style: italic;
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>🛒 Lista della Spesa Smart</h1>
-    
-    <div class="input-group">
-      <input type="text" id="prodottoInput" placeholder="Aggiungi prodotto (es. pane, latte)...">
-      <button onclick="aggiungiProdotto()">Aggiungi</button>
+    <h1>🛒 Lista della Spesa</h1>
+
+    <div class="input-box">
+      <input type="text" id="itemInput" placeholder="Inserisci un prodotto...">
+      <button onclick="aggiungiElemento()">Aggiungi</button>
     </div>
 
-    <div id="listaSpesa"></div>
+    <ul id="listaSpesa"></ul>
   </div>
 
   <script>
-    let offerteVolantino = [];
-    let listaProdotti = [];
+    let datiOfferte = [];
+    let listaSpesa = [];
 
-    // Carica le offerte scaricate dallo scraper Python
+    // Caricamento del file JSON generato dallo scraper
     fetch('offerte.json')
       .then(res => res.json())
       .then(data => {
-        offerteVolantino = Object.values(data);
+        datiOfferte = Object.values(data);
       })
-      .catch(err => console.error("Errore caricamento offerte:", err));
+      .catch(err => console.error("Errore nel caricamento offerte:", err));
 
-    function aggiungiProdotto() {
-      const input = document.getElementById('prodottoInput');
-      const nome = input.value.trim();
-      
-      if (nome === "") return;
+    function aggiungiElemento() {
+      const input = document.getElementById('itemInput');
+      const testo = input.value.trim();
 
-      listaProdotti.push(nome);
+      if (testo === "") return;
+
+      listaSpesa.push(testo);
       input.value = "";
-      aggiornaGrafica();
+      mostraLista();
     }
 
-    function rimuoviProdotto(index) {
-      listaProdotti.splice(index, 1);
-      aggiornaGrafica();
+    function rimuoviElemento(index) {
+      listaSpesa.splice(index, 1);
+      mostraLista();
     }
 
-    function aggiornaGrafica() {
-      const container = document.getElementById('listaSpesa');
-      container.innerHTML = "";
+    function mostraLista() {
+      const ul = document.getElementById('listaSpesa');
+      ul.innerHTML = "";
 
-      listaProdotti.forEach((prodotto, index) => {
-        const card = document.createElement('div');
-        card.className = "item-card";
+      listaSpesa.forEach((prodotto, index) => {
+        const li = document.createElement('li');
 
-        // Cerca se il prodotto inserito corrisponde a un'offerta presente nei volantini
-        const offerteTrovate = offerteVolantino.filter(off => 
+        // Ricerca corrispondenze nel file offerte.json
+        const trovate = datiOfferte.filter(off =>
           off.titolo.toLowerCase().includes(prodotto.toLowerCase())
         );
 
         let htmlOfferte = "";
-        if (offerteTrovate.length > 0) {
-          offerteTrovate.forEach(off => {
+        if (trovate.length > 0) {
+          trovate.forEach(off => {
             htmlOfferte += `
-              <div class="offerta-tag ${off.negozio}">
-                <strong>📍 ${off.negozio}:</strong> ${off.titolo} — <span style="color: #16a34a; font-weight: bold;">${off.prezzo}</span>
+              <div class="badge-offerta ${off.negozio}">
+                <strong>${off.negozio}:</strong> ${off.titolo} — <span style="color:#28a745; font-weight:bold;">${off.prezzo}</span>
               </div>
             `;
           });
         } else {
-          htmlOfferte = `<div class="no-offerta">Nessuna offerta trovata questa settimana per "${prodotto}".</div>`;
+          htmlOfferte = `<div class="no-offerta">Nessuna offerta trovata nei volantini.</div>`;
         }
 
-        card.innerHTML = `
-          <div class="item-header">
+        li.innerHTML = `
+          <div class="item-row">
             <span>📌 ${prodotto}</span>
-            <button class="btn-del" onclick="rimuoviProdotto(${index})">Elimina</button>
+            <button class="btn-del" onclick="rimuoviElemento(${index})">Elimina</button>
           </div>
-          <div class="offerte-list">
+          <div class="offerte-container">
             ${htmlOfferte}
           </div>
         `;
 
-        container.appendChild(card);
+        ul.appendChild(li);
       });
     }
   </script>
