@@ -193,7 +193,7 @@
 
     ul { list-style: none; padding: 0; margin: 0; }
 
-    /* Elementi Lista Compatti con Logo */
+    /* Elementi Lista Compatti */
     li {
       display: flex;
       justify-content: space-between;
@@ -218,7 +218,7 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      max-width: 82%;
+      max-width: 65%;
     }
 
     .item-text {
@@ -227,21 +227,40 @@
       word-break: break-word;
     }
 
-    /* Stile per i loghi dei negozi */
+    /* Azioni a destra dell'elemento */
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Pulsante Alert Offerta */
+    .offer-alert-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Stile per i loghi badge */
     .store-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 11px;
       margin-top: 2px;
-    }
-
-    .logo-img {
-      height: 16px;
-      width: auto;
-      object-fit: contain;
-      border-radius: 2px;
-      vertical-align: middle;
     }
 
     .store-price {
@@ -256,7 +275,7 @@
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
-      padding: 4px 8px;
+      padding: 4px 6px;
     }
 
     .clear-btn {
@@ -269,6 +288,73 @@
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    /* Modal Pop-up Offerte */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-card {
+      background: #181824;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 20px;
+      width: 90%;
+      max-width: 360px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+      color: #ffffff;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #f59e0b;
+    }
+
+    .close-modal-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .modal-offers-list {
+      max-height: 250px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-offer-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     /* Crediti in basso a destra */
@@ -324,6 +410,17 @@
 
   </div>
 
+  <!-- MODAL OFFERTE -->
+  <div id="modalOfferte" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">🏷️ Offerte trovate</h3>
+        <button class="close-modal-btn" onclick="chiudiModal()">✕</button>
+      </div>
+      <div id="modalOffersList" class="modal-offers-list"></div>
+    </div>
+  </div>
+
   <!-- CREDITI IN BASSO A DESTRA -->
   <div class="footer-credits">
     Created by Gian Luca Trabucco
@@ -333,10 +430,10 @@
     let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
     let datiOfferte = [];
 
-    // URL dei loghi ufficiali
+    // Badge grafici personalizzati per i negozi
     const LOGHI_NEGOZI = {
-      'Lidl': 'https://upload.wikimedia.org/wikipedia/commons/9/91/Lidl-Logo.svg',
-      'Eurospin': 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Eurospin_logo.svg'
+      'Lidl': '<span style="background:#0050aa; color:#fff000; font-weight:900; padding:2px 6px; border-radius:4px; border:1px solid #d01010; font-size:10px;">LIDL</span>',
+      'Eurospin': '<span style="background:#003399; color:#ffffff; font-weight:bold; padding:2px 6px; border-radius:4px; font-size:10px;"><span style="color:#ffcc00;">★</span> EUROSPIN</span>'
     };
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -384,10 +481,7 @@
     function salvaInMemoria() { localStorage.setItem("spesa", JSON.stringify(elementi)); }
 
     function getLogoHTML(negozio) {
-      if (LOGHI_NEGOZI[negozio]) {
-        return `<img src="${LOGHI_NEGOZI[negozio]}" alt="${negozio}" class="logo-img">`;
-      }
-      return `<span>📍 ${negozio}</span>`;
+      return LOGHI_NEGOZI[negozio] || `<span>📍 ${negozio}</span>`;
     }
 
     /* Autocompletamento Anteprima */
@@ -429,6 +523,13 @@
       setTimeout(() => { document.getElementById("suggestionsBox").style.display = "none"; }, 200);
     }
 
+    /* Trova offerte corrispondenti */
+    function cercaOffertePerTesto(testo) {
+      const parola = testo.toLowerCase().trim();
+      if (!parola || parola.length < 2) return [];
+      return datiOfferte.filter(off => (off.titolo || "").toLowerCase().includes(parola));
+    }
+
     /* Rendering Lista */
     function mostraLista() {
       const ul = document.getElementById("listaSpesa");
@@ -448,16 +549,18 @@
           mostraLista();
         };
 
-        // Gestione logo e dettagli offerta
         let tagNegozioHTML = "";
+        let offerteCorrispondenti = [];
+
         if (item.negozio) {
           tagNegozioHTML = `<div class="store-tag">${getLogoHTML(item.negozio)} <span class="store-price">${item.prezzo || ''}</span></div>`;
         } else {
-          const parola = item.testo.toLowerCase().trim();
-          const off = datiOfferte.find(o => (o.titolo || "").toLowerCase().includes(parola));
-          if (off) {
-            tagNegozioHTML = `<div class="store-tag">${getLogoHTML(off.negozio)} <span class="store-price">${off.prezzo}</span></div>`;
-          }
+          offerteCorrispondenti = cercaOffertePerTesto(item.testo);
+        }
+
+        let alertOffertaHTML = "";
+        if (!item.negozio && offerteCorrispondenti.length > 0) {
+          alertOffertaHTML = `<button class="offer-alert-btn" onclick="apriModalOfferte(event, '${item.testo.replace(/'/g, "\\'")}')">🏷️ Offerte!</button>`;
         }
 
         li.innerHTML = `
@@ -465,10 +568,44 @@
             <span class="item-text">${item.testo}</span>
             ${tagNegozioHTML}
           </div>
-          <button class="delete-btn" onclick="eliminaElemento(event, ${index})">✕</button>
+          <div class="item-actions">
+            ${alertOffertaHTML}
+            <button class="delete-btn" onclick="eliminaElemento(event, ${index})">✕</button>
+          </div>
         `;
         ul.appendChild(li);
       });
+    }
+
+    /* Gestione Modal Offerte */
+    function apriModalOfferte(event, parolaChiave) {
+      event.stopPropagation();
+      const modal = document.getElementById("modalOfferte");
+      const title = document.getElementById("modalTitle");
+      const list = document.getElementById("modalOffersList");
+
+      const offerte = cercaOffertePerTesto(parolaChiave);
+      title.innerText = `🏷️ Offerte per "${parolaChiave}"`;
+      list.innerHTML = "";
+
+      offerte.forEach(off => {
+        const div = document.createElement("div");
+        div.className = "modal-offer-item";
+        div.innerHTML = `
+          <div>
+            <div style="margin-bottom:4px;">${getLogoHTML(off.negozio)}</div>
+            <strong style="font-size:13px;">${off.titolo}</strong>
+          </div>
+          <span class="store-price" style="font-size:14px;">${off.prezzo}</span>
+        `;
+        list.appendChild(div);
+      });
+
+      modal.style.display = "flex";
+    }
+
+    function chiudiModal() {
+      document.getElementById("modalOfferte").style.display = "none";
     }
 
     function aggiungiElemento() {
