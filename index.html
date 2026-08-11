@@ -3,159 +3,317 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista Spesa e Offerte</title>
+  <title>La Mia Spesa Smart</title>
   <style>
-    /* Stile e sfondo originale */
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       margin: 0;
-      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 50px;
+      padding-bottom: 20px;
+      background-color: #08080c;
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
     }
+
+    /* Sfumature luminose e fluide in movimento sullo sfondo */
+    .glow-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      z-index: 0;
+      pointer-events: none;
+      animation: float 12s infinite alternate ease-in-out;
+    }
+
+    .blob-1 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, #00d2ff 0%, #3a7bd5 100%);
+      top: -50px;
+      left: -80px;
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, #8a2be2 0%, #4a00e0 100%);
+      bottom: -80px;
+      right: -80px;
+      animation-delay: -4s;
+    }
+
+    .blob-3 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, #00f2fe 0%, #4facfe 100%);
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -8s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        transform: translate(40px, 30px) scale(1.15);
+      }
+      100% {
+        transform: translate(-30px, 50px) scale(0.9);
+      }
+    }
+
+    /* Contenitore stile Glassmorphism */
     .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+      background: rgba(18, 18, 26, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      width: 90%;
+      max-width: 360px;
     }
+
     h1 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #ffffff;
       text-align: center;
-      color: #333;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
     .input-box {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       margin-bottom: 20px;
     }
-    input[type="text"] {
+
+    input {
       flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      font-size: 15px;
+      color: #ffffff;
+      outline: none;
+      transition: all 0.3s ease;
     }
-    button {
-      padding: 10px 15px;
-      background-color: #007bff;
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    input:focus {
+      border-color: #00d2ff;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+    }
+
+    button.add-btn {
+      background: linear-gradient(135deg, #00d2ff, #3a7bd5);
       color: white;
       border: none;
-      border-radius: 4px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 18px;
       cursor: pointer;
-      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+      transition: transform 0.2s;
     }
-    button:hover {
-      background-color: #0056b3;
+
+    button.add-btn:active {
+      transform: scale(0.95);
     }
+
     ul {
-      list-style-type: none;
+      list-style: none;
       padding: 0;
+      margin: 0;
     }
+
     li {
-      background: #fafafa;
-      border: 1px solid #ddd;
-      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
       margin-bottom: 10px;
-      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .item-row {
+
+    li:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    li.completato {
+      opacity: 0.35;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    li.completato .item-header span {
+      text-decoration: line-through;
+    }
+
+    .item-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-weight: bold;
+      width: 100%;
     }
-    .btn-del {
-      background-color: #dc3545;
-      color: white;
+
+    .delete-btn {
+      background: none;
       border: none;
-      padding: 5px 10px;
-      border-radius: 4px;
+      color: #ff4d4d;
+      font-weight: bold;
+      font-size: 16px;
       cursor: pointer;
-      font-size: 12px;
+      padding: 0 4px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
     }
-    /* Blocco offerte integrato sotto/affianco al prodotto */
+
+    .delete-btn:hover {
+      opacity: 1;
+    }
+
+    .clear-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: rgba(255, 59, 48, 0.15);
+      color: #ff5252;
+      border: 1px solid rgba(255, 82, 82, 0.3);
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .clear-btn:hover {
+      background: rgba(255, 59, 48, 0.25);
+      box-shadow: 0 0 15px rgba(255, 82, 82, 0.2);
+    }
+
+    /* Moduli per il visualizzatore offerte integrato */
     .offerte-container {
       margin-top: 8px;
       padding-top: 8px;
-      border-top: 1px dashed #ccc;
-      font-size: 14px;
-      font-weight: normal;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12px;
     }
+
     .badge-offerta {
       display: block;
       margin-top: 4px;
-      padding: 4px 8px;
-      border-radius: 3px;
-      background-color: #e9ecef;
-      color: #212529;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid #00d2ff;
+      color: #e2e8f0;
     }
+
     .badge-offerta.Lidl {
-      background-color: #fff3cd;
-      border-left: 4px solid #ffc107;
+      border-left-color: #facc15;
+      background: rgba(250, 204, 21, 0.1);
     }
+
     .badge-offerta.Eurospin {
-      background-color: #cce5ff;
-      border-left: 4px solid #004085;
+      border-left-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
     }
+
     .no-offerta {
-      color: #888;
+      color: rgba(255, 255, 255, 0.35);
       font-style: italic;
-      font-size: 13px;
+      font-size: 11px;
     }
   </style>
 </head>
 <body>
 
+  <!-- Sfumature animate sullo sfondo -->
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+  <div class="glow-blob blob-3"></div>
+
   <div class="container">
     <h1>🛒 Lista della Spesa</h1>
-
+    
     <div class="input-box">
-      <input type="text" id="itemInput" placeholder="Inserisci un prodotto...">
-      <button onclick="aggiungiElemento()">Aggiungi</button>
+      <input type="text" id="elementoInput" placeholder="Aggiungi oggetto...">
+      <button class="add-btn" onclick="aggiungiElemento()">+</button>
     </div>
 
     <ul id="listaSpesa"></ul>
+
+    <button id="btnSvuota" class="clear-btn" onclick="svuotaLista()" style="display: none;">🗑️ Svuota Lista</button>
   </div>
 
   <script>
-    let datiOfferte = [];
-    let listaSpesa = [];
+    document.addEventListener("DOMContentLoaded", caricaLista);
 
-    // Caricamento del file JSON generato dallo scraper
+    let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
+    let datiOfferte = [];
+
+    // Carica il file offerte.json estratto dal Python Scraper
     fetch('offerte.json')
       .then(res => res.json())
       .then(data => {
         datiOfferte = Object.values(data);
+        mostraLista();
       })
-      .catch(err => console.error("Errore nel caricamento offerte:", err));
+      .catch(err => console.error("Errore caricamento offerte:", err));
 
-    function aggiungiElemento() {
-      const input = document.getElementById('itemInput');
-      const testo = input.value.trim();
-
-      if (testo === "") return;
-
-      listaSpesa.push(testo);
-      input.value = "";
-      mostraLista();
-    }
-
-    function rimuoviElemento(index) {
-      listaSpesa.splice(index, 1);
-      mostraLista();
+    function salvaInMemoria() {
+      localStorage.setItem("spesa", JSON.stringify(elementi));
     }
 
     function mostraLista() {
-      const ul = document.getElementById('listaSpesa');
+      const ul = document.getElementById("listaSpesa");
+      const btnSvuota = document.getElementById("btnSvuota");
       ul.innerHTML = "";
 
-      listaSpesa.forEach((prodotto, index) => {
-        const li = document.createElement('li');
+      if (elementi.length > 0) {
+        btnSvuota.style.display = "block";
+      } else {
+        btnSvuota.style.display = "none";
+      }
 
-        // Ricerca corrispondenze nel file offerte.json
+      elementi.forEach((item, index) => {
+        const li = document.createElement("li");
+        if (item.comprato) li.classList.add("completato");
+
+        li.onclick = function() {
+          elementi[index].comprato = !elementi[index].comprato;
+          salvaInMemoria();
+          mostraLista();
+        };
+
+        // Ricerca corrispondenze con il file JSON delle offerte
         const trovate = datiOfferte.filter(off =>
-          off.titolo.toLowerCase().includes(prodotto.toLowerCase())
+          off.titolo && off.titolo.toLowerCase().includes(item.testo.toLowerCase())
         );
 
         let htmlOfferte = "";
@@ -163,18 +321,18 @@
           trovate.forEach(off => {
             htmlOfferte += `
               <div class="badge-offerta ${off.negozio}">
-                <strong>${off.negozio}:</strong> ${off.titolo} — <span style="color:#28a745; font-weight:bold;">${off.prezzo}</span>
+                <strong>📍 ${off.negozio}:</strong> ${off.titolo} — <span style="color: #4ade80; font-weight: bold;">${off.prezzo}</span>
               </div>
             `;
           });
         } else {
-          htmlOfferte = `<div class="no-offerta">Nessuna offerta trovata nei volantini.</div>`;
+          htmlOfferte = `<div class="no-offerta">Nessuna offerta in volantino</div>`;
         }
 
         li.innerHTML = `
-          <div class="item-row">
-            <span>📌 ${prodotto}</span>
-            <button class="btn-del" onclick="rimuoviElemento(${index})">Elimina</button>
+          <div class="item-header">
+            <span>${item.testo}</span>
+            <button class="delete-btn" onclick="eliminaElemento(event, ${index})">✕</button>
           </div>
           <div class="offerte-container">
             ${htmlOfferte}
@@ -182,6 +340,46 @@
         `;
 
         ul.appendChild(li);
+      });
+    }
+
+    function aggiungiElemento() {
+      const input = document.getElementById("elementoInput");
+      const testo = input.value.trim();
+
+      if (testo === "") return;
+
+      elementi.push({ testo: testo, comprato: false });
+      salvaInMemoria();
+      mostraLista();
+
+      input.value = "";
+    }
+
+    function eliminaElemento(event, index) {
+      event.stopPropagation();
+      elementi.splice(index, 1);
+      salvaInMemoria();
+      mostraLista();
+    }
+
+    function svuotaLista() {
+      if (elementi.length === 0) return;
+
+      if (confirm("Sei sicuro di voler cancellare tutta la lista?")) {
+        elementi = [];
+        salvaInMemoria();
+        mostraLista();
+      }
+    }
+
+    function caricaLista() {
+      mostraLista();
+      
+      document.getElementById("elementoInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+          aggiungiElemento();
+        }
       });
     }
   </script>
