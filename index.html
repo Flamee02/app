@@ -18,8 +18,8 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding-top: 50px;
-      padding-bottom: 20px;
+      padding-top: 30px;
+      padding-bottom: 30px;
       background-color: #08080c;
       color: #ffffff;
       overflow-x: hidden;
@@ -59,38 +59,38 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 25px;
+      padding: 20px;
       border-radius: 20px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      width: 90%;
-      max-width: 360px;
+      width: 92%;
+      max-width: 400px;
     }
 
     /* Schermata di blocco per utenti non autenticati */
     #lockScreen {
       text-align: center;
-      padding: 20px 10px;
+      padding: 30px 10px;
     }
 
     #lockScreen h2 {
-      font-size: 20px;
+      font-size: 22px;
       margin-bottom: 10px;
     }
 
     #lockScreen p {
       font-size: 14px;
       color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .auth-btn {
       background: linear-gradient(135deg, #00d2ff, #3a7bd5);
       color: white;
       border: none;
-      padding: 12px 24px;
-      border-radius: 10px;
+      padding: 14px 28px;
+      border-radius: 12px;
       font-weight: bold;
-      font-size: 15px;
+      font-size: 16px;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
     }
@@ -113,22 +113,29 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff;
-      padding: 4px 8px;
+      padding: 4px 10px;
       border-radius: 6px;
       cursor: pointer;
+      font-size: 11px;
     }
 
     h1 {
       margin-top: 0;
-      font-size: 24px;
+      margin-bottom: 15px;
+      font-size: 22px;
       color: #ffffff;
       text-align: center;
+    }
+
+    /* Input & Autocompletamento */
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 15px;
     }
 
     .input-box {
       display: flex;
       gap: 8px;
-      margin-bottom: 20px;
     }
 
     input {
@@ -153,16 +160,84 @@
       cursor: pointer;
     }
 
+    .suggestions-box {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 50px;
+      background: rgba(24, 24, 35, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      max-height: 180px;
+      overflow-y: auto;
+      z-index: 10;
+      margin-top: 5px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 10px 12px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .suggestion-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Filtri Rapidi */
+    .filter-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 15px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      background: rgba(0, 210, 255, 0.2);
+      border-color: #00d2ff;
+      color: #00d2ff;
+      font-weight: bold;
+    }
+
+    /* Gruppi di Liste */
+    .group-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.4);
+      margin: 15px 0 8px 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     ul { list-style: none; padding: 0; margin: 0; }
 
     li {
       display: flex;
       flex-direction: column;
-      padding: 12px 14px;
+      padding: 10px 12px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       cursor: pointer;
     }
 
@@ -188,7 +263,7 @@
     .clear-btn {
       width: 100%;
       margin-top: 15px;
-      padding: 12px;
+      padding: 10px;
       background: rgba(255, 59, 48, 0.15);
       color: #ff5252;
       border: 1px solid rgba(255, 82, 82, 0.3);
@@ -198,16 +273,16 @@
     }
 
     .offerte-container {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 12px;
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
     }
 
     .badge-offerta {
       display: block;
-      margin-top: 4px;
-      padding: 6px 8px;
+      margin-top: 3px;
+      padding: 4px 8px;
       border-radius: 6px;
       background: rgba(255, 255, 255, 0.05);
       border-left: 3px solid #00d2ff;
@@ -216,7 +291,6 @@
 
     .badge-offerta.Lidl { border-left-color: #facc15; background: rgba(250, 204, 21, 0.1); }
     .badge-offerta.Eurospin { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.1); }
-    .no-offerta { color: rgba(255, 255, 255, 0.35); font-style: italic; font-size: 11px; }
   </style>
 </head>
 <body>
@@ -233,7 +307,7 @@
       <button class="auth-btn" onclick="openLogin()">Accedi con il tuo Invito</button>
     </div>
 
-    <!-- CONTENUTO APP (Visibile solo agli utenti invitati e autenticati) -->
+    <!-- CONTENUTO APP -->
     <div id="appContent">
       <div class="user-header">
         <span id="userEmail"></span>
@@ -241,13 +315,26 @@
       </div>
 
       <h1>🛒 Lista della Spesa</h1>
-      
-      <div class="input-box">
-        <input type="text" id="elementoInput" placeholder="Aggiungi oggetto...">
-        <button class="add-btn" onclick="aggiungiElemento()">+</button>
+
+      <!-- Input con Autocompletamento -->
+      <div class="input-wrapper">
+        <div class="input-box">
+          <input type="text" id="elementoInput" placeholder="Aggiungi o cerca prodotto..." oninput="gestisciSuggerimenti()">
+          <button class="add-btn" onclick="aggiungiElemento()">+</button>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
       </div>
 
-      <ul id="listaSpesa"></ul>
+      <!-- Filtri Rapidi -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setFiltro('tutti', this)">Tutti</button>
+        <button class="filter-btn" onclick="setFiltro('da_comprare', this)">Da comprare</button>
+        <button class="filter-btn" onclick="setFiltro('in_offerta', this)">In Offerta 🔥</button>
+        <button class="filter-btn" onclick="setFiltro('comprati', this)">Comprati</button>
+      </div>
+
+      <!-- Contenitore Liste Raggruppate per Negozio -->
+      <div id="listeContainer"></div>
 
       <button id="btnSvuota" class="clear-btn" onclick="svuotaLista()" style="display: none;">🗑️ Svuota Lista</button>
     </div>
@@ -257,22 +344,13 @@
   <script>
     let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
     let datiOfferte = [];
+    let filtroAttivo = 'tutti';
 
     document.addEventListener("DOMContentLoaded", function() {
-      // Inizializza il widget Identity
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          updateAuthUI(user);
-        });
-
-        window.netlifyIdentity.on("login", user => {
-          window.netlifyIdentity.close();
-          updateAuthUI(user);
-        });
-
-        window.netlifyIdentity.on("logout", () => {
-          updateAuthUI(null);
-        });
+        window.netlifyIdentity.on("init", user => updateAuthUI(user));
+        window.netlifyIdentity.on("login", user => { window.netlifyIdentity.close(); updateAuthUI(user); });
+        window.netlifyIdentity.on("logout", () => updateAuthUI(null));
       }
 
       fetch('offerte.json')
@@ -281,10 +359,13 @@
           datiOfferte = Object.values(data);
           mostraLista();
         })
-        .catch(err => console.error("Errore carimento offerte:", err));
+        .catch(err => console.error("Errore caricamento offerte:", err));
 
       document.getElementById("elementoInput").addEventListener("keydown", function(event) {
-        if (event.key === "Enter") aggiungiElemento();
+        if (event.key === "Enter") {
+          nascondiSuggerimenti();
+          aggiungiElemento();
+        }
       });
     });
 
@@ -304,76 +385,144 @@
       }
     }
 
-    function openLogin() {
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.open();
-      }
-    }
+    function openLogin() { if (window.netlifyIdentity) window.netlifyIdentity.open(); }
+    function logout() { if (window.netlifyIdentity) window.netlifyIdentity.logout(); }
 
-    function logout() {
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.logout();
-      }
-    }
+    function salvaInMemoria() { localStorage.setItem("spesa", JSON.stringify(elementi)); }
 
-    function salvaInMemoria() {
-      localStorage.setItem("spesa", JSON.stringify(elementi));
-    }
+    /* Autocompletamento */
+    function gestisciSuggerimenti() {
+      const input = document.getElementById("elementoInput");
+      const box = document.getElementById("suggestionsBox");
+      const testo = input.value.toLowerCase().trim();
 
-    function mostraLista() {
-      const ul = document.getElementById("listaSpesa");
-      const btnSvuota = document.getElementById("btnSvuota");
-      if (!ul) return;
-      
-      ul.innerHTML = "";
-
-      if (elementi.length > 0) {
-        btnSvuota.style.display = "block";
-      } else {
-        btnSvuota.style.display = "none";
+      if (testo.length < 2) {
+        box.style.display = "none";
+        return;
       }
 
-      elementi.forEach((item, index) => {
-        const li = document.createElement("li");
-        if (item.comprato) li.classList.add("completato");
+      const trovati = datiOfferte.filter(off => (off.titolo || "").toLowerCase().includes(testo)).slice(0, 5);
 
-        li.onclick = function() {
-          elementi[index].comprato = !elementi[index].comprato;
-          salvaInMemoria();
-          mostraLista();
+      if (trovati.length === 0) {
+        box.style.display = "none";
+        return;
+      }
+
+      box.innerHTML = "";
+      trovati.forEach(off => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item";
+        item.innerHTML = `<span><strong>${off.negozio}:</strong> ${off.titolo}</span> <span style="color:#4ade80">${off.prezzo}</span>`;
+        item.onclick = function() {
+          input.value = off.titolo;
+          box.style.display = "none";
+          aggiungiElemento();
         };
+        box.appendChild(item);
+      });
+      box.style.display = "block";
+    }
 
-        const parolaCercata = item.testo.toLowerCase().trim();
-        const trovate = datiOfferte.filter(off => {
-          const titolo = (off.titolo || "").toLowerCase();
-          return titolo.includes(parolaCercata);
-        });
+    function nascondiSuggerimenti() {
+      setTimeout(() => { document.getElementById("suggestionsBox").style.display = "none"; }, 200);
+    }
 
-        let htmlOfferte = "";
-        if (trovate.length > 0) {
-          trovate.forEach(off => {
-            htmlOfferte += `
-              <div class="badge-offerta ${off.negozio}">
-                <strong>📍 ${off.negozio}:</strong> ${off.titolo} — <span style="color: #4ade80; font-weight: bold;">${off.prezzo}</span>
-              </div>
-            `;
-          });
-        } else {
-          htmlOfferte = `<div class="no-offerta">Nessuna offerta in volantino</div>`;
+    /* Gestione Filtri */
+    function setFiltro(tipo, btn) {
+      filtroAttivo = tipo;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      mostraLista();
+    }
+
+    /* Rendering e Raggruppamento per Negozio */
+    function mostraLista() {
+      const container = document.getElementById("listeContainer");
+      const btnSvuota = document.getElementById("btnSvuota");
+      if (!container) return;
+      
+      container.innerHTML = "";
+      btnSvuota.style.display = elementi.length > 0 ? "block" : "none";
+
+      // Filtra elementi
+      let filtrati = elementi.map((item, index) => ({ ...item, originalIndex: index })).filter(item => {
+        if (filtroAttivo === 'da_comprare') return !item.comprato;
+        if (filtroAttivo === 'comprati') return item.comprato;
+        if (filtroAttivo === 'in_offerta') {
+          const t = item.testo.toLowerCase().trim();
+          return datiOfferte.some(off => (off.titolo || "").toLowerCase().includes(t));
+        }
+        return true;
+      });
+
+      // Raggruppa per Negozio
+      const gruppi = { 'Lidl': [], 'Eurospin': [], 'Altri Prodotti': [], 'Completati': [] };
+
+      filtrati.forEach(item => {
+        if (item.comprato) {
+          gruppi['Completati'].push(item);
+          return;
         }
 
-        li.innerHTML = `
-          <div class="item-header">
-            <span>${item.testo}</span>
-            <button class="delete-btn" onclick="eliminaElemento(event, ${index})">✕</button>
-          </div>
-          <div class="offerte-container">
-            ${htmlOfferte}
-          </div>
-        `;
+        const parola = item.testo.toLowerCase().trim();
+        const off = datiOfferte.find(o => (o.titolo || "").toLowerCase().includes(parola));
 
-        ul.appendChild(li);
+        if (off && gruppi[off.negozio]) {
+          gruppi[off.negozio].push(item);
+        } else {
+          gruppi['Altri Prodotti'].push(item);
+        }
       });
+
+      // Genera HTML per ogni gruppo
+      Object.keys(gruppi).forEach(nomeGruppo => {
+        const listaGruppo = gruppi[nomeGruppo];
+        if (listaGruppo.length === 0) return;
+
+        const gruppoDiv = document.createElement("div");
+        gruppoDiv.innerHTML = `<div class="group-title">${getIconaGruppo(nomeGruppo)} ${nomeGruppo}</div>`;
+        const ul = document.createElement("ul");
+
+        listaGruppo.forEach(item => {
+          const li = document.createElement("li");
+          if (item.comprato) li.classList.add("completato");
+
+          li.onclick = function() {
+            elementi[item.originalIndex].comprato = !elementi[item.originalIndex].comprato;
+            salvaInMemoria();
+            mostraLista();
+          };
+
+          const parola = item.testo.toLowerCase().trim();
+          const trovate = datiOfferte.filter(off => (off.titolo || "").toLowerCase().includes(parola));
+
+          let htmlOfferte = "";
+          if (trovate.length > 0) {
+            trovate.forEach(off => {
+              htmlOfferte += `<div class="badge-offerta ${off.negozio}"><strong>📍 ${off.negozio}:</strong> ${off.titolo} — <span style="color: #4ade80; font-weight: bold;">${off.prezzo}</span></div>`;
+            });
+          }
+
+          li.innerHTML = `
+            <div class="item-header">
+              <span>${item.testo}</span>
+              <button class="delete-btn" onclick="eliminaElemento(event, ${item.originalIndex})">✕</button>
+            </div>
+            ${htmlOfferte ? `<div class="offerte-container">${htmlOfferte}</div>` : ''}
+          `;
+          ul.appendChild(li);
+        });
+
+        gruppoDiv.appendChild(ul);
+        container.appendChild(gruppoDiv);
+      });
+    }
+
+    function getIconaGruppo(nome) {
+      if (nome === 'Lidl') return '🟡';
+      if (nome === 'Eurospin') return '🔵';
+      if (nome === 'Completati') return '✅';
+      return '📦';
     }
 
     function aggiungiElemento() {
