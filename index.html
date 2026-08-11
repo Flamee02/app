@@ -311,10 +311,14 @@
           mostraLista();
         };
 
-        // Ricerca corrispondenze con il file JSON delle offerte
-        const trovate = datiOfferte.filter(off =>
-          off.titolo && off.titolo.toLowerCase().includes(item.testo.toLowerCase())
-        );
+        // Pulisce e confronta la parola cercata
+        const parolaCercata = item.testo.toLowerCase().trim();
+
+        // Cerca sia nel titolo che nell'eventuale descrizione dell'offerta
+        const trovate = datiOfferte.filter(off => {
+          const titolo = (off.titolo || "").toLowerCase();
+          return titolo.includes(parolaCercata);
+        });
 
         let htmlOfferte = "";
         if (trovate.length > 0) {
