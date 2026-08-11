@@ -1,34 +1,102 @@
 {
-  "pane": {
-    "negozio": "Conad",
-    "sconto": "1.10€/kg"
-  },
-  "latte": {
-    "negozio": "Coop",
-    "sconto": "-25%"
-  },
-  "caffè": {
-    "negozio": "Esselunga",
-    "sconto": "2.99€"
-  },
-  "caffe": {
-    "negozio": "Esselunga",
-    "sconto": "2.99€"
-  },
-  "pasta": {
+  "offerta_1": {
+    "titolo": "Offerte valide dal 10 agosto  al 23 agosto 2026",
     "negozio": "Eurospin",
-    "sconto": "0.55€"
+    "prezzo": "In offerta"
   },
-  "uova": {
+  "offerta_2": {
+    "titolo": "PARMIGIANO REGGIANO DOP GRATTUGIATO",
+    "negozio": "Eurospin",
+    "prezzo": "1,991,49 €"
+  },
+  "offerta_3": {
+    "titolo": "OLIO DI SEMI DI GIRASOLE",
+    "negozio": "Eurospin",
+    "prezzo": "1,691,39 €"
+  },
+  "offerta_4": {
+    "titolo": "CONI CON PANNA, 12 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "3,99 €"
+  },
+  "offerta_5": {
+    "titolo": "WÜRSTEL PURO SUINO, 4 PZ",
+    "negozio": "Eurospin",
+    "prezzo": "0,550,39 €"
+  },
+  "offerta_6": {
+    "titolo": "PROSCIUTTO \r\nDI PARMA DOP",
+    "negozio": "Eurospin",
+    "prezzo": "3,292,59 €"
+  },
+  "offerta_7": {
+    "titolo": "MORTADELLA\nBOLOGNA IGP",
+    "negozio": "Eurospin",
+    "prezzo": "1,891,49 €"
+  },
+  "offerta_8": {
+    "titolo": "PETTO DI TACCHINO ARROSTO",
+    "negozio": "Eurospin",
+    "prezzo": "2,491,99 €"
+  },
+  "offerta_9": {
+    "titolo": "BRESAOLA DELLA VALTELLINA IGP",
+    "negozio": "Eurospin",
+    "prezzo": "3,092,29 €"
+  },
+  "offerta_10": {
+    "titolo": "PROVOLA DOLCE \nA FETTE",
+    "negozio": "Eurospin",
+    "prezzo": "1,791,29 €"
+  },
+  "offerta_11": {
+    "titolo": "HomeMarchiBlogNessun risultato trovatoProva con termini diversiVedi tutti i risultati",
     "negozio": "Lidl",
-    "sconto": "1.20€"
+    "prezzo": "Offerta Volantino"
   },
-  "biscotti": {
-    "negozio": "MD",
-    "sconto": "-30%"
+  "offerta_12": {
+    "titolo": "Cucina giocattolo in legno49,00 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
   },
-  "nutella": {
-    "negozio": "Decò",
-    "sconto": "3.50€"
+  "offerta_13": {
+    "titolo": "Friggitrice ad aria calda69,00 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
+  },
+  "offerta_14": {
+    "titolo": "Montalatte elettrico19,99 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
+  },
+  "offerta_15": {
+    "titolo": "Microonde, 17 L49,00 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
+  },
+  "offerta_16": {
+    "titolo": "Macchina per caffè espresso79,00 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
+  },
+  "offerta_17": {
+    "titolo": "Impastatrice planetaria, nera49,00 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
+  },
+  "offerta_18": {
+    "titolo": "Macchina sigillasacchetti19,99 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
+  },
+  "offerta_19": {
+    "titolo": "Mobile per lavatrice49,00 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
+  },
+  "offerta_20": {
+    "titolo": "Macchina da cucire99,00 €",
+    "negozio": "Lidl",
+    "prezzo": "Offerta Volantino"
   }
 }
