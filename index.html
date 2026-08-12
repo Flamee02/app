@@ -6,6 +6,10 @@
   <title>La Mia Spesa Smart</title>
   <!-- Widget Netlify Identity per gestione inviti e login -->
   <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Firebase SDK per la sincronizzazione in tempo reale -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  
   <style>
     * {
       box-sizing: border-box;
@@ -128,6 +132,45 @@
       text-align: center;
     }
 
+    /* Selettore Stanza / Lista Condivisa */
+    .room-selector {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .room-selector label {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .room-box {
+      display: flex;
+      gap: 6px;
+    }
+
+    .room-box input {
+      flex: 1;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .room-btn {
+      background: rgba(0, 210, 255, 0.2);
+      border: 1px solid rgba(0, 210, 255, 0.4);
+      color: #00d2ff;
+      padding: 0 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
     /* Input & Autocompletamento */
     .input-wrapper {
       position: relative;
@@ -163,7 +206,7 @@
       width: 70px;
     }
 
-    /* Pannello Pulsanti Quantità Rapidi (Nascosto di base, appare solo a digitazione ferma) */
+    /* Pannello Pulsanti Quantità Rapidi */
     .quick-qty-panel {
       display: none;
       gap: 6px;
@@ -186,10 +229,6 @@
       font-size: 12px;
       font-weight: bold;
       cursor: pointer;
-    }
-
-    .quick-qty-btn:hover {
-      background: rgba(0, 210, 255, 0.3);
     }
 
     button.add-btn {
@@ -235,7 +274,6 @@
 
     ul { list-style: none; padding: 0; margin: 0; }
 
-    /* Elementi Lista Compatti */
     li {
       display: flex;
       justify-content: space-between;
@@ -269,14 +307,12 @@
       word-break: break-word;
     }
 
-    /* Azioni a destra dell'elemento */
     .item-actions {
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    /* Pulsante Alert Offerta */
     .offer-alert-btn {
       background: linear-gradient(135deg, #f59e0b, #d97706);
       color: #ffffff;
@@ -296,7 +332,6 @@
       100% { transform: scale(1); }
     }
 
-    /* Stile per i loghi badge */
     .store-tag {
       display: inline-flex;
       align-items: center;
@@ -332,7 +367,22 @@
       cursor: pointer;
     }
 
-    /* Modal Pop-up Offerte */
+    .whatsapp-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(37, 211, 102, 0.15);
+      color: #25d366;
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .whatsapp-btn:hover {
+      background: rgba(37, 211, 102, 0.25);
+    }
+
+    /* Modal Offerte */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -399,7 +449,6 @@
       align-items: center;
     }
 
-    /* Crediti in basso a destra */
     .footer-credits {
       width: 100%;
       max-width: 400px;
@@ -435,6 +484,15 @@
 
       <h1>🛒 Lista della Spesa</h1>
 
+      <!-- Selettore Lista Privata o Condivisa (Stanza) -->
+      <div class="room-selector">
+        <label>🔑 Nome Stanza / Lista Condivisa:</label>
+        <div class="room-box">
+          <input type="text" id="roomInput" placeholder="Es: casa-rossi">
+          <button class="room-btn" onclick="cambiaStanza()">Collega</button>
+        </div>
+      </div>
+
       <!-- Input con Autocompletamento e Quantità -->
       <div class="input-wrapper">
         <div class="input-box">
@@ -449,7 +507,6 @@
           <button class="add-btn" onclick="aggiungiElemento()">+</button>
         </div>
         
-        <!-- Pannello pulsanti rapidi quantità (Scomparso di base, appare solo a fine digitazione) -->
         <div id="quickQtyPanel" class="quick-qty-panel">
           <span style="font-size: 11px; color: rgba(255,255,255,0.5); align-self: center; margin-right: 2px;">Qtà rapida:</span>
           <button class="quick-qty-btn" onclick="impostaQuantitaRapida(1, 'pz')">1</button>
@@ -467,6 +524,7 @@
       <ul id="listaSpesa"></ul>
 
       <button id="btnSvuota" class="clear-btn" onclick="svuotaLista()" style="display: none;">🗑️ Svuota Lista</button>
+      <button class="whatsapp-btn" onclick="condividiWhatsApp()">💬 Condividi su WhatsApp</button>
     </div>
 
   </div>
@@ -488,11 +546,26 @@
   </div>
 
   <script>
-    let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
+    // CONFIGURAZIONE FIREBASE (Inserisci qui i tuoi dati gratuiti di Firebase)
+    const firebaseConfig = {
+      apiKey: "TUO_API_KEY",
+      authDomain: "TUO_PROGETTO.firebaseapp.com",
+      databaseURL: "https://TUO_PROGETTO-default-rtdb.firebaseio.com",
+      projectId: "TUO_PROGETTO",
+      storageBucket: "TUO_PROGETTO.appspot.com",
+      messagingSenderId: "TID",
+      appId: "APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    let elementi = [];
     let datiOfferte = [];
     let timerDigitazione = null;
+    let databaseRef = null;
+    let stanzaCorrente = "";
 
-    // Badge grafici personalizzati per i negozi
     const LOGHI_NEGOZI = {
       'Lidl': '<span style="background:#0050aa; color:#fff000; font-weight:900; padding:2px 6px; border-radius:4px; border:1px solid #d01010; font-size:10px;">LIDL</span>',
       'Eurospin': '<span style="background:#003399; color:#ffffff; font-weight:bold; padding:2px 6px; border-radius:4px; font-size:10px;"><span style="color:#ffcc00;">★</span> EUROSPIN</span>'
@@ -532,35 +605,64 @@
         lockScreen.style.display = "none";
         appContent.style.display = "block";
         userEmail.innerText = user.email;
-        mostraLista();
+        
+        // Di default, imposta la stanza privata basata sull'email dell'utente
+        const safeEmail = user.email.replace(/[.#$[\]]/g, "_");
+        document.getElementById("roomInput").value = safeEmail;
+        impostaStanzaCloud(safeEmail);
       } else {
         lockScreen.style.display = "block";
         appContent.style.display = "none";
+        if (databaseRef) databaseRef.off();
       }
+    }
+
+    function impostaStanzaCloud(nomeStanza) {
+      if (databaseRef) databaseRef.off(); // Stacca il listener precedente
+      stanzaCorrente = nomeStanza.trim().replace(/[.#$[\]]/g, "_");
+      
+      databaseRef = db.ref('liste/' + stanzaCorrente);
+
+      // Ascolta in tempo reale i cambiamenti sul cloud
+      databaseRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        elementi = data ? data : [];
+        mostraLista();
+      });
+    }
+
+    function cambiaStanza() {
+      const nuovoNome = document.getElementById("roomInput").value.trim();
+      if (!nuovoNome) {
+        alert("Inserisci un nome valido per la stanza!");
+        return;
+      }
+      impostaStanzaCloud(nuovoNome);
     }
 
     function openLogin() { if (window.netlifyIdentity) window.netlifyIdentity.open(); }
     function logout() { if (window.netlifyIdentity) window.netlifyIdentity.logout(); }
 
-    function salvaInMemoria() { localStorage.setItem("spesa", JSON.stringify(elementi)); }
+    // Salva direttamente nel database cloud in tempo reale
+    function salvaInMemoria() {
+      if (databaseRef) {
+        databaseRef.set(elementi);
+      }
+    }
 
     function getLogoHTML(negozio) {
       return LOGHI_NEGOZI[negozio] || `<span>📍 ${negozio}</span>`;
     }
 
-    /* Gestione Ritardo Digitazione per mostrare i pulsanti rapidi solo alla fine */
     function gestisciInputDigitazione() {
       gestisciSuggerimenti();
-      
       const input = document.getElementById("elementoInput");
       const pannello = document.getElementById("quickQtyPanel");
 
-      // Spegne subito il pannello mentre l'utente sta scrivendo
       pannello.style.display = "none";
       clearTimeout(timerDigitazione);
 
       if (input.value.trim().length > 0) {
-        // Mostra i pulsanti rapidi solo dopo 700ms che l'utente ha smesso di digitare
         timerDigitazione = setTimeout(() => {
           if (input.value.trim().length > 0) {
             pannello.style.display = "flex";
@@ -579,7 +681,6 @@
       nascondiPannelloRapido();
     }
 
-    /* Autocompletamento Anteprima */
     function gestisciSuggerimenti() {
       const input = document.getElementById("elementoInput");
       const box = document.getElementById("suggestionsBox");
@@ -619,14 +720,12 @@
       setTimeout(() => { document.getElementById("suggestionsBox").style.display = "none"; }, 200);
     }
 
-    /* Trova offerte corrispondenti */
     function cercaOffertePerTesto(testo) {
       const parola = testo.toLowerCase().trim();
       if (!parola || parola.length < 2) return [];
       return datiOfferte.filter(off => (off.titolo || "").toLowerCase().includes(parola));
     }
 
-    /* Rendering Lista SICURO (Protezione XSS) */
     function mostraLista() {
       const ul = document.getElementById("listaSpesa");
       const btnSvuota = document.getElementById("btnSvuota");
@@ -661,7 +760,6 @@
 
         let quantitaTesto = item.quantita ? `${item.quantita} ${item.unita || ''} - ` : "";
 
-        // Creazione sicura del testo dell'articolo tramite textContent
         const itemTextSpan = document.createElement("span");
         itemTextSpan.className = "item-text";
         itemTextSpan.textContent = quantitaTesto + item.testo;
@@ -698,7 +796,6 @@
       });
     }
 
-    /* Gestione Modal Offerte */
     function apriModalOfferte(event, parolaChiave) {
       event.stopPropagation();
       const modal = document.getElementById("modalOfferte");
@@ -781,6 +878,25 @@
         salvaInMemoria();
         mostraLista();
       }
+    }
+
+    // Condivisione formattata su WhatsApp
+    function condividiWhatsApp() {
+      if (elementi.length === 0) {
+        alert("La lista è vuota!");
+        return;
+      }
+
+      let testoMessaggio = "🛒 *Lista della Spesa (" + stanzaCorrente + ")*\n\n";
+      elementi.forEach(item => {
+        let stato = item.comprato ? "✅ " : "⬜ ";
+        let qta = item.quantita ? `(${item.quantita} ${item.unita || ''}) ` : "";
+        let negozio = item.negozio ? ` [📍 ${item.negozio} - ${item.prezzo}]` : "";
+        testoMessaggio += `${stato}${qta}${item.testo}${negozio}\n`;
+      });
+
+      const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(testoMessaggio)}`;
+      window.open(urlWhatsApp, '_blank');
     }
   </script>
 
