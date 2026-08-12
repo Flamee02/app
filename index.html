@@ -200,7 +200,7 @@
     }
 
     #quantitaInput {
-      width: 60px;
+      width: 75px;
       text-align: center;
       flex-shrink: 0;
     }
@@ -503,22 +503,13 @@
         </div>
       </div>
 
-      <!-- Input con Autocompletamento e Quantità (Tendina) -->
+      <!-- Input con Autocompletamento e Quantità (Tendina Dinamica) -->
       <div class="input-wrapper">
         <div class="input-box">
           <select id="quantitaInput">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+            <!-- Popolato dinamicamente da JS in base all'unità -->
           </select>
-          <select id="unitaInput">
+          <select id="unitaInput" onchange="aggiornaOpzioniQuantita()">
             <option value="pz">pz</option>
             <option value="kg">kg</option>
             <option value="g">g</option>
@@ -593,7 +584,12 @@
     };
 
     document.addEventListener("DOMContentLoaded", function() {
+      aggiornaOpzioniQuantita(); // Inizializza la tendina quantità sul default (pz)
+
       if (window.netlifyIdentity) {
+        const currentUser = window.netlifyIdentity.currentUser();
+        updateAuthUI(currentUser);
+
         window.netlifyIdentity.on("init", user => updateAuthUI(user));
         window.netlifyIdentity.on("login", user => { window.netlifyIdentity.close(); updateAuthUI(user); });
         window.netlifyIdentity.on("logout", () => updateAuthUI(null));
@@ -616,6 +612,29 @@
         }
       });
     });
+
+    // Funzione per cambiare i valori della tendina quantità a seconda dell'unità scelta
+    function aggiornaOpzioniQuantita() {
+      const unita = document.getElementById("unitaInput").value;
+      const selectQta = document.getElementById("quantitaInput");
+      selectQta.innerHTML = "";
+
+      let opzioni = [];
+      if (unita === "pz") {
+        opzioni = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+      } else if (unita === "kg" || unita === "L") {
+        opzioni = ["0.25", "0.5", "1", "1.5", "2", "2.5", "3", "4", "5"];
+      } else if (unita === "g") {
+        opzioni = ["50", "100", "150", "200", "250", "300", "400", "500", "750", "1000"];
+      }
+
+      opzioni.forEach(val => {
+        const opt = document.createElement("option");
+        opt.value = val;
+        opt.textContent = val;
+        selectQta.appendChild(opt);
+      });
+    }
 
     function updateAuthUI(user) {
       const lockScreen = document.getElementById("lockScreen");
@@ -694,8 +713,9 @@
     }
 
     function impostaQuantitaRapida(valore, unita) {
-      document.getElementById("quantitaInput").value = valore;
       document.getElementById("unitaInput").value = unita;
+      aggiornaOpzioniQuantita();
+      document.getElementById("quantitaInput").value = valore;
       nascondiPannelloRapido();
     }
 
@@ -735,7 +755,7 @@
     }
 
     function nascondiSuggerimenti() {
-      setTimeout(() => { document.getElementById("suggestionsBox").style.display = "none"; }, 200);
+      document.getElementById("suggestionsBox").style.display = "none";
     }
 
     function cercaOffertePerTesto(testo) {
@@ -860,9 +880,9 @@
       mostraLista();
       
       input.value = "";
-      quantitaInput.value = "1";
-      unitaInput.value = "pz";
+      quantitaInput.value = unita === "pz" ? "1" : "50";
       nascondiPannelloRapido();
+      nascondiSuggerimenti();
     }
 
     function aggiungiElementoConDettagli(testo, negozio, prezzo) {
@@ -877,9 +897,8 @@
       mostraLista();
       
       document.getElementById("elementoInput").value = "";
-      quantitaInput.value = "1";
-      unitaInput.value = "pz";
       nascondiPannelloRapido();
+      nascondiSuggerimenti();
     }
 
     function eliminaElemento(event, index) {
