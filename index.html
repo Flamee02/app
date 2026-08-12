@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>La Mia Spesa Smart</title>
   <!-- Widget Netlify Identity per gestione inviti e login -->
   <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -171,7 +171,7 @@
       font-size: 12px;
     }
 
-    /* Input & Autocompletamento */
+    /* Input & Autocompletamento (Ottimizzato per Mobile) */
     .input-wrapper {
       position: relative;
       margin-bottom: 15px;
@@ -179,17 +179,19 @@
 
     .input-box {
       display: flex;
-      gap: 8px;
+      gap: 5px;
+      align-items: center;
+      width: 100%;
     }
 
     input, select {
       background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 10px;
-      font-size: 15px;
+      font-size: 16px; /* Evita lo zoom automatico su iOS */
       color: #ffffff;
       outline: none;
-      padding: 12px 10px;
+      padding: 12px 6px;
     }
 
     select option {
@@ -198,12 +200,31 @@
     }
 
     #quantitaInput {
-      width: 55px;
+      width: 60px;
       text-align: center;
+      flex-shrink: 0;
     }
 
     #unitaInput {
-      width: 70px;
+      width: 65px;
+      flex-shrink: 0;
+    }
+
+    #elementoInput {
+      flex: 1;
+      min-width: 0; /* Fondamentale per evitare lo straripamento */
+    }
+
+    .add-btn {
+      background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+      color: white;
+      border: none;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      flex-shrink: 0; /* Impedisce al bottone di deformarsi */
     }
 
     /* Pannello Pulsanti Quantità Rapidi */
@@ -228,17 +249,6 @@
       border-radius: 6px;
       font-size: 12px;
       font-weight: bold;
-      cursor: pointer;
-    }
-
-    button.add-btn {
-      background: linear-gradient(135deg, #00d2ff, #3a7bd5);
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 18px;
       cursor: pointer;
     }
 
@@ -493,10 +503,21 @@
         </div>
       </div>
 
-      <!-- Input con Autocompletamento e Quantità -->
+      <!-- Input con Autocompletamento e Quantità (Tendina) -->
       <div class="input-wrapper">
         <div class="input-box">
-          <input type="number" id="quantitaInput" value="1" min="1" placeholder="Qtà">
+          <select id="quantitaInput">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
           <select id="unitaInput">
             <option value="pz">pz</option>
             <option value="kg">kg</option>
@@ -509,12 +530,12 @@
         
         <div id="quickQtyPanel" class="quick-qty-panel">
           <span style="font-size: 11px; color: rgba(255,255,255,0.5); align-self: center; margin-right: 2px;">Qtà rapida:</span>
-          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(1, 'pz')">1</button>
-          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(2, 'pz')">2</button>
-          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(3, 'pz')">3</button>
-          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(5, 'pz')">5</button>
-          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(500, 'g')">500g</button>
-          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(1, 'kg')">1kg</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida('1', 'pz')">1</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida('2', 'pz')">2</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida('3', 'pz')">3</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida('5', 'pz')">5</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida('500', 'g')">500g</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida('1', 'kg')">1kg</button>
         </div>
 
         <div id="suggestionsBox" class="suggestions-box"></div>
@@ -546,7 +567,7 @@
   </div>
 
   <script>
-    // CONFIGURAZIONE FIREBASE AGGIORNATA
+    // CONFIGURAZIONE FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyCvyxezvjGgzqCQVV6bvP9umQ7KvLtDo5c",
       authDomain: "app-spesa-4be95.firebaseapp.com",
@@ -829,7 +850,7 @@
       const unitaInput = document.getElementById("unitaInput");
       
       const testo = input.value.trim();
-      const quantita = quantitaInput.value.trim() || "1";
+      const quantita = quantitaInput.value;
       const unita = unitaInput.value;
 
       if (testo === "") return;
@@ -848,7 +869,7 @@
       const quantitaInput = document.getElementById("quantitaInput");
       const unitaInput = document.getElementById("unitaInput");
       
-      const quantita = quantitaInput.value.trim() || "1";
+      const quantita = quantitaInput.value;
       const unita = unitaInput.value;
 
       elementi.push({ testo: testo, quantita: quantita, unita: unita, negozio: negozio, prezzo: prezzo, comprato: false });
