@@ -546,15 +546,15 @@
   </div>
 
   <script>
-    // CONFIGURAZIONE FIREBASE (Inserisci qui i tuoi dati gratuiti di Firebase)
+    // CONFIGURAZIONE FIREBASE AGGIORNATA
     const firebaseConfig = {
-      apiKey: "TUO_API_KEY",
-      authDomain: "TUO_PROGETTO.firebaseapp.com",
-      databaseURL: "https://TUO_PROGETTO-default-rtdb.firebaseio.com",
-      projectId: "TUO_PROGETTO",
-      storageBucket: "TUO_PROGETTO.appspot.com",
-      messagingSenderId: "TID",
-      appId: "APP_ID"
+      apiKey: "AIzaSyCvyxezvjGgzqCQVV6bvP9umQ7KvLtDo5c",
+      authDomain: "app-spesa-4be95.firebaseapp.com",
+      databaseURL: "https://app-spesa-4be95-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "app-spesa-4be95",
+      storageBucket: "app-spesa-4be95.firebasestorage.app",
+      messagingSenderId: "452227653225",
+      appId: "1:452227653225:web:f6591ddf4cfc1963e9ccf8"
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -606,7 +606,6 @@
         appContent.style.display = "block";
         userEmail.innerText = user.email;
         
-        // Di default, imposta la stanza privata basata sull'email dell'utente
         const safeEmail = user.email.replace(/[.#$[\]]/g, "_");
         document.getElementById("roomInput").value = safeEmail;
         impostaStanzaCloud(safeEmail);
@@ -618,12 +617,11 @@
     }
 
     function impostaStanzaCloud(nomeStanza) {
-      if (databaseRef) databaseRef.off(); // Stacca il listener precedente
+      if (databaseRef) databaseRef.off(); 
       stanzaCorrente = nomeStanza.trim().replace(/[.#$[\]]/g, "_");
       
       databaseRef = db.ref('liste/' + stanzaCorrente);
 
-      // Ascolta in tempo reale i cambiamenti sul cloud
       databaseRef.on('value', (snapshot) => {
         const data = snapshot.val();
         elementi = data ? data : [];
@@ -643,7 +641,6 @@
     function openLogin() { if (window.netlifyIdentity) window.netlifyIdentity.open(); }
     function logout() { if (window.netlifyIdentity) window.netlifyIdentity.logout(); }
 
-    // Salva direttamente nel database cloud in tempo reale
     function salvaInMemoria() {
       if (databaseRef) {
         databaseRef.set(elementi);
@@ -880,7 +877,6 @@
       }
     }
 
-    // Condivisione formattata su WhatsApp
     function condividiWhatsApp() {
       if (elementi.length === 0) {
         alert("La lista è vuota!");
