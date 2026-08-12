@@ -139,15 +139,57 @@
       gap: 8px;
     }
 
-    input {
-      flex: 1;
-      padding: 12px 14px;
+    input, select {
       background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 10px;
       font-size: 15px;
       color: #ffffff;
       outline: none;
+      padding: 12px 10px;
+    }
+
+    select option {
+      background: #181824;
+      color: #ffffff;
+    }
+
+    #quantitaInput {
+      width: 55px;
+      text-align: center;
+    }
+
+    #unitaInput {
+      width: 70px;
+    }
+
+    /* Pannello Pulsanti Quantità Rapidi (Nascosto di base, appare solo a digitazione ferma) */
+    .quick-qty-panel {
+      display: none;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quick-qty-btn {
+      background: rgba(0, 210, 255, 0.15);
+      border: 1px solid rgba(0, 210, 255, 0.4);
+      color: #00d2ff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .quick-qty-btn:hover {
+      background: rgba(0, 210, 255, 0.3);
     }
 
     button.add-btn {
@@ -393,12 +435,31 @@
 
       <h1>🛒 Lista della Spesa</h1>
 
-      <!-- Input con Autocompletamento Anteprima -->
+      <!-- Input con Autocompletamento e Quantità -->
       <div class="input-wrapper">
         <div class="input-box">
-          <input type="text" id="elementoInput" placeholder="Aggiungi oggetto..." oninput="gestisciSuggerimenti()">
+          <input type="number" id="quantitaInput" value="1" min="1" placeholder="Qtà">
+          <select id="unitaInput">
+            <option value="pz">pz</option>
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="L">L</option>
+          </select>
+          <input type="text" id="elementoInput" placeholder="Aggiungi oggetto..." oninput="gestisciInputDigitazione()">
           <button class="add-btn" onclick="aggiungiElemento()">+</button>
         </div>
+        
+        <!-- Pannello pulsanti rapidi quantità (Scomparso di base, appare solo a fine digitazione) -->
+        <div id="quickQtyPanel" class="quick-qty-panel">
+          <span style="font-size: 11px; color: rgba(255,255,255,0.5); align-self: center; margin-right: 2px;">Qtà rapida:</span>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(1, 'pz')">1</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(2, 'pz')">2</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(3, 'pz')">3</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(5, 'pz')">5</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(500, 'g')">500g</button>
+          <button class="quick-qty-btn" onclick="impostaQuantitaRapida(1, 'kg')">1kg</button>
+        </div>
+
         <div id="suggestionsBox" class="suggestions-box"></div>
       </div>
 
@@ -429,6 +490,7 @@
   <script>
     let elementi = JSON.parse(localStorage.getItem("spesa")) || [];
     let datiOfferte = [];
+    let timerDigitazione = null;
 
     // Badge grafici personalizzati per i negozi
     const LOGHI_NEGOZI = {
@@ -453,7 +515,9 @@
 
       document.getElementById("elementoInput").addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
+          event.preventDefault();
           nascondiSuggerimenti();
+          nascondiPannelloRapido();
           aggiungiElemento();
         }
       });
@@ -484,6 +548,37 @@
       return LOGHI_NEGOZI[negozio] || `<span>📍 ${negozio}</span>`;
     }
 
+    /* Gestione Ritardo Digitazione per mostrare i pulsanti rapidi solo alla fine */
+    function gestisciInputDigitazione() {
+      gestisciSuggerimenti();
+      
+      const input = document.getElementById("elementoInput");
+      const pannello = document.getElementById("quickQtyPanel");
+
+      // Spegne subito il pannello mentre l'utente sta scrivendo
+      pannello.style.display = "none";
+      clearTimeout(timerDigitazione);
+
+      if (input.value.trim().length > 0) {
+        // Mostra i pulsanti rapidi solo dopo 700ms che l'utente ha smesso di digitare
+        timerDigitazione = setTimeout(() => {
+          if (input.value.trim().length > 0) {
+            pannello.style.display = "flex";
+          }
+        }, 700);
+      }
+    }
+
+    function nascondiPannelloRapido() {
+      document.getElementById("quickQtyPanel").style.display = "none";
+    }
+
+    function impostaQuantitaRapida(valore, unita) {
+      document.getElementById("quantitaInput").value = valore;
+      document.getElementById("unitaInput").value = unita;
+      nascondiPannelloRapido();
+    }
+
     /* Autocompletamento Anteprima */
     function gestisciSuggerimenti() {
       const input = document.getElementById("elementoInput");
@@ -512,6 +607,7 @@
         item.onclick = function() {
           input.value = off.titolo;
           box.style.display = "none";
+          nascondiPannelloRapido();
           aggiungiElementoConDettagli(off.titolo, off.negozio, off.prezzo);
         };
         box.appendChild(item);
@@ -530,7 +626,7 @@
       return datiOfferte.filter(off => (off.titolo || "").toLowerCase().includes(parola));
     }
 
-    /* Rendering Lista */
+    /* Rendering Lista SICURO (Protezione XSS) */
     function mostraLista() {
       const ul = document.getElementById("listaSpesa");
       const btnSvuota = document.getElementById("btnSvuota");
@@ -563,16 +659,41 @@
           alertOffertaHTML = `<button class="offer-alert-btn" onclick="apriModalOfferte(event, '${item.testo.replace(/'/g, "\\'")}')">🏷️ Offerte!</button>`;
         }
 
-        li.innerHTML = `
-          <div class="item-content">
-            <span class="item-text">${item.testo}</span>
-            ${tagNegozioHTML}
-          </div>
-          <div class="item-actions">
-            ${alertOffertaHTML}
-            <button class="delete-btn" onclick="eliminaElemento(event, ${index})">✕</button>
-          </div>
-        `;
+        let quantitaTesto = item.quantita ? `${item.quantita} ${item.unita || ''} - ` : "";
+
+        // Creazione sicura del testo dell'articolo tramite textContent
+        const itemTextSpan = document.createElement("span");
+        itemTextSpan.className = "item-text";
+        itemTextSpan.textContent = quantitaTesto + item.testo;
+
+        const contentDiv = document.createElement("div");
+        contentDiv.className = "item-content";
+        contentDiv.appendChild(itemTextSpan);
+        
+        if (tagNegozioHTML) {
+          const storeTagDiv = document.createElement("div");
+          storeTagDiv.innerHTML = tagNegozioHTML;
+          contentDiv.appendChild(storeTagDiv);
+        }
+
+        li.appendChild(contentDiv);
+
+        const actionsDiv = document.createElement("div");
+        actionsDiv.className = "item-actions";
+
+        if (alertOffertaHTML) {
+          const alertWrapper = document.createElement("div");
+          alertWrapper.innerHTML = alertOffertaHTML;
+          actionsDiv.appendChild(alertWrapper.firstElementChild);
+        }
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.innerHTML = "✕";
+        deleteBtn.onclick = function(event) { eliminaElemento(event, index); };
+        actionsDiv.appendChild(deleteBtn);
+
+        li.appendChild(actionsDiv);
         ul.appendChild(li);
       });
     }
@@ -610,20 +731,40 @@
 
     function aggiungiElemento() {
       const input = document.getElementById("elementoInput");
+      const quantitaInput = document.getElementById("quantitaInput");
+      const unitaInput = document.getElementById("unitaInput");
+      
       const testo = input.value.trim();
+      const quantita = quantitaInput.value.trim() || "1";
+      const unita = unitaInput.value;
+
       if (testo === "") return;
 
-      elementi.push({ testo: testo, comprato: false });
+      elementi.push({ testo: testo, quantita: quantita, unita: unita, comprato: false });
       salvaInMemoria();
       mostraLista();
+      
       input.value = "";
+      quantitaInput.value = "1";
+      unitaInput.value = "pz";
+      nascondiPannelloRapido();
     }
 
     function aggiungiElementoConDettagli(testo, negozio, prezzo) {
-      elementi.push({ testo: testo, negozio: negozio, prezzo: prezzo, comprato: false });
+      const quantitaInput = document.getElementById("quantitaInput");
+      const unitaInput = document.getElementById("unitaInput");
+      
+      const quantita = quantitaInput.value.trim() || "1";
+      const unita = unitaInput.value;
+
+      elementi.push({ testo: testo, quantita: quantita, unita: unita, negozio: negozio, prezzo: prezzo, comprato: false });
       salvaInMemoria();
       mostraLista();
+      
       document.getElementById("elementoInput").value = "";
+      quantitaInput.value = "1";
+      unitaInput.value = "pz";
+      nascondiPannelloRapido();
     }
 
     function eliminaElemento(event, index) {
