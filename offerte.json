@@ -908,5 +908,55 @@
     "titolo": "LATTE UHT PARZIALMENTE SCREMATO LAND 1L",
     "negozio": "Eurospin",
     "prezzo": "0,79 €"
+  },
+  "offerta_183": {
+    "titolo": "Cucina giocattolo in legno",
+    "negozio": "Lidl",
+    "prezzo": "49,00 €"
+  },
+  "offerta_184": {
+    "titolo": "Friggitrice ad aria calda",
+    "negozio": "Lidl",
+    "prezzo": "69,00 €"
+  },
+  "offerta_185": {
+    "titolo": "Montalatte elettrico",
+    "negozio": "Lidl",
+    "prezzo": "19,99 €"
+  },
+  "offerta_186": {
+    "titolo": "Microonde, 17 L",
+    "negozio": "Lidl",
+    "prezzo": "49,00 €"
+  },
+  "offerta_187": {
+    "titolo": "Macchina per caffè espresso",
+    "negozio": "Lidl",
+    "prezzo": "79,00 €"
+  },
+  "offerta_188": {
+    "titolo": "Impastatrice planetaria, nera",
+    "negozio": "Lidl",
+    "prezzo": "45,00 €"
+  },
+  "offerta_189": {
+    "titolo": "Macchina sigillasacchetti",
+    "negozio": "Lidl",
+    "prezzo": "19,99 €"
+  },
+  "offerta_190": {
+    "titolo": "Mobile per lavatrice",
+    "negozio": "Lidl",
+    "prezzo": "49,00 €"
+  },
+  "offerta_191": {
+    "titolo": "Macchina da cucire",
+    "negozio": "Lidl",
+    "prezzo": "99,00 €"
+  },
+  "offerta_192": {
+    "titolo": "Barbecue a gas",
+    "negozio": "Lidl",
+    "prezzo": "249,00 €"
   }
 }
