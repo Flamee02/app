@@ -1150,14 +1150,14 @@
     "prezzo": "19,99 €"
   },
   "offerta_231": {
-    "titolo": "Mobile per lavatrice",
-    "negozio": "Lidl",
-    "prezzo": "49,00 €"
-  },
-  "offerta_232": {
     "titolo": "Macchina da cucire",
     "negozio": "Lidl",
     "prezzo": "99,00 €"
+  },
+  "offerta_232": {
+    "titolo": "Mobile per lavatrice",
+    "negozio": "Lidl",
+    "prezzo": "49,00 €"
   },
   "offerta_233": {
     "titolo": "Barbecue a gas",
